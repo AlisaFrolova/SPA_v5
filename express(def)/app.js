@@ -3,7 +3,7 @@ const path = require("path");
 const cors = require("cors");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { createUser, findUser, getPosts, generateStaticUsers, addPost } = require('./users');
+const { createUser, findUser, getPosts, generateStaticUsers, addPost, deletePost } = require('./users');
 const cookieParser = require("cookie-parser")
 
 const ACCESS_SECRET = 'mySecretWord1'
@@ -148,4 +148,11 @@ app.post("/api/addPost", authMiddleware, async (req, res) => {
   const post = {author: author, title: title, description: description, date: date}
   await addPost(post)
   return res.status(200).json({message: "Post was added"})
+})
+
+app.post("/api/deletePost", authMiddleware, async (req,res) => {
+  const {postID} = req.body
+  const id = {id: postID}
+  await deletePost(id)
+  return res.status(200).json({message: "Post was deleted"})
 })

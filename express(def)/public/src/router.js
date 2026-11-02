@@ -13,6 +13,7 @@ import spawnVideoArticle from "./views/videoView/Modules/videoArticleModule.js"
 import tokenData from "./tokenModule.js"
 import communityView from "./views/communityView/communityView.js"
 import createPost from "./views/communityView/Modules/createPost.js"
+import getPost from "./views/communityView/Modules/postModule.js"
 
 const routes = {
     "/": homeView,
@@ -25,7 +26,8 @@ const routes = {
     "/video": videoView,
     "/video/article": spawnVideoArticle,
     "/community": communityView,
-    "/community/create": createPost
+    "/community/create": createPost,
+    "/community/post": getPost
 };
 
 const appContainer = document.getElementById("app")

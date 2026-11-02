@@ -39,6 +39,7 @@ async function getPosts(){
   for (const el of users) {
     if(el.posts.length > 0){
       for (const post of el.posts) {
+          post["id"] = posts.length+1
           posts.push(post)
       }
     }
@@ -50,5 +51,16 @@ async function addPost(post){
   const index = users.indexOf(user => user.username === post.username)
   users.at(index).posts.push(post)
 }
+
+async function deletePost(postID){
+  let id = postID.id
+  for (const user of users) {
+    for (const post of user.posts) {
+      if(post.id === id){
+        user.posts.splice(posts.indexOf(post), 1)
+      }
+    }
+  }
+}
  
-module.exports = { createUser, findUser, getPosts, generateStaticUsers, addPost };
+module.exports = { createUser, findUser, getPosts, generateStaticUsers, addPost, deletePost };

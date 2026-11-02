@@ -3,7 +3,7 @@ import { getVideos } from "../../../NasaApi.js"
 import spawnVideoCards from "../Components/spawnVideoCards.js"
 import spawnNav from "../Components/videoNavigation.js"
 
-export default function spawnVideosSection(){
+export default function spawnVideosSection(defTheme = '' ){
     const cardsContainer = document.querySelector(".previewCardsContainer")
     cardsContainer.innerHTML = ""
 
@@ -12,11 +12,11 @@ export default function spawnVideosSection(){
 
     let pageNumber = parseInt(localStorage.getItem("pageNumber"))
 
-    let theme = localStorage.getItem("videoTheme")
+    let theme = defTheme ? defTheme :  localStorage.getItem("videoTheme")
     let prevTheme = localStorage.getItem("prevVideoTheme")
     localStorage.setItem("prevVideoTheme", theme)
     if(prevTheme !== theme) pageNumber = 1
-
+    console.log('--blablabla--')
     getVideos(10, theme, pageNumber).then(data => {
         loadingText.remove()
         if(data){
