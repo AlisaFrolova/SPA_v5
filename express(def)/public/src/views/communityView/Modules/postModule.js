@@ -12,18 +12,22 @@ function spawnPost(title, author, date, description, id){ //-> ^^ (?) -almost th
 
     post.append(createEl("h2", title, "header"))
 
+    const postContainer = createEl("div", "", "postContainer")
+
     const infoContainer = createEl("div", "", "postInfoContainer")
     infoContainer.append(createInfoText("User", author))
     infoContainer.append(createInfoText("Date", date))
     infoContainer.append(createInfoText("ID", id))
-    post.append(infoContainer)
+    postContainer.append(infoContainer)
 
-    post.append(createEl("p", description, "postDescription"))
+    postContainer.append(createEl("p", description, "postDescription"))
 
     const returnLink = createEl("a", "Return to Posts  -->", "link")
     returnLink.href = "/community"
     returnLink.setAttribute("data-link", "")
-    post.append(returnLink)
+    postContainer.append(returnLink)
+
+    post.append(postContainer)
 
     return post
 }

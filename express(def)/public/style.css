@@ -763,9 +763,17 @@ blue-10: #2E3A92 */
 .fullPost{
     background: #0d1117;
     padding: 40px;
+    padding-left: 0;
 }
 .fullPost > .postInfoContainer{
     width: 100%; 
+}
+.postContainer{
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    width: 100%;
+    gap: 10px;
 }
 .postMark{
     box-shadow: 0px 1px 8px 2px #2E3A92;
