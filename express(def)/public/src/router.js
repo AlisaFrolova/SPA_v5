@@ -14,6 +14,7 @@ import tokenData from "./tokenModule.js"
 import communityView from "./views/communityView/communityView.js"
 import createPost from "./views/communityView/Modules/createPost.js"
 import getPost from "./views/communityView/Modules/postModule.js"
+import spawnUpdatePostSection from "./views/communityView/Modules/updatePost.js"
 
 const routes = {
     "/": homeView,
@@ -27,7 +28,8 @@ const routes = {
     "/video/article": spawnVideoArticle,
     "/community": communityView,
     "/community/create": createPost,
-    "/community/post": getPost
+    "/community/post": getPost,
+    "/community/update": spawnUpdatePostSection
 };
 
 const appContainer = document.getElementById("app")

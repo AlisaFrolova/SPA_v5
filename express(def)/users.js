@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const users = []
 let posts = []
 
-async function generateStaticUsers(){//^^ (will be remade to method-reader(?))
+async function generateStaticUsers(){
     if(!await findUser("wra1th")){
       const pass1 = await bcrypt.hash("1q2w3e", 10)
       users.push({ username: "wra1th", password: pass1, posts: [
@@ -53,14 +53,23 @@ async function addPost(post){
 }
 
 async function deletePost(postID){
-  let id = postID.id
   for (const user of users) {
     for (const post of user.posts) {
-      if(post.id === id){
+      if(parseInt(post.id) === parseInt(postID.id)){
         user.posts.splice(posts.indexOf(post), 1)
       }
     }
   }
 }
+
+async function updatePost(newPost){
+  const user = users.find(user => user.username === newPost.username)
+  if(user){
+    const index = user.posts.findIndex(post => parseInt(post.id) === parseInt(newPost.id))
+    if(index !== -1){
+      user.posts[index] = newPost
+    }
+  }
+}
  
-module.exports = { createUser, findUser, getPosts, generateStaticUsers, addPost, deletePost };
+module.exports = { createUser, findUser, getPosts, generateStaticUsers, addPost, deletePost, updatePost };

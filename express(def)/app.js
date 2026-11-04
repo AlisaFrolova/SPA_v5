@@ -3,7 +3,7 @@ const path = require("path");
 const cors = require("cors");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { createUser, findUser, getPosts, generateStaticUsers, addPost, deletePost } = require('./users');
+const { createUser, findUser, getPosts, generateStaticUsers, addPost, deletePost, updatePost } = require('./users');
 const cookieParser = require("cookie-parser")
 
 const ACCESS_SECRET = 'mySecretWord1'
@@ -146,7 +146,7 @@ app.get("/api/posts", authMiddleware, async (req, res) => {
 app.post("/api/addPost", authMiddleware, async (req, res) => {
   const { author, title, description, date } = req.body
   const post = {author: author, title: title, description: description, date: date}
-  await addPost(post)
+  await addPost(post)//! add some validation
   return res.status(200).json({message: "Post was added"})
 })
 
@@ -155,4 +155,11 @@ app.post("/api/deletePost", authMiddleware, async (req,res) => {
   const id = {id: postID}
   await deletePost(id)
   return res.status(200).json({message: "Post was deleted"})
+})
+
+app.post("/api/updatePost", authMiddleware, async (req,res) => {
+  const { author, title, description, date, id } = req.body
+  const post = {author: author, title: title, description: description, date: date, id: id}
+  await updatePost(post)//! add some validation
+  return res.status(200).json({message: "Post was updated"})
 })

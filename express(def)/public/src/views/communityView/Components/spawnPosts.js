@@ -5,6 +5,7 @@ import createInfoText from "./createInfoText.js"
 import { getUsername } from "../../../tools.js"
 import tokenData from "../../../tokenModule.js"
 
+
 let username = ""
 
 export default function spawnPosts(container){
@@ -22,10 +23,25 @@ function createPost(author, date, title, description, id){ //^^ the name of this
     if(username === author){ 
         post.append(createEl("p", "Your Post", "postMark"))
         
-        //const updateButton = createEl("button", "Change", "submitButton")//^^ again, the name of class doesnt suit the el (needs to ba changed everywhere to just BUTTON)
+        const updateLink = createEl("a", "Update", "link")//^^ again, the name of class doesnt suit the el (needs to ba changed everywhere to just BUTTON)
+        updateLink.href = "/community/update" //-> to tools, because it was already used in many places
+        updateLink.setAttribute("data-link", "")
+        updateLink.addEventListener("click", () => {
+            localStorage.setItem("articleID", id)
+        })
+        post.append(updateLink)
+
         const deleteButton = createEl("button", "Delete", "confirmButton")
         deleteButton.addEventListener("click", () => {
-            deletePost(id)
+            deletePost(id).then(res => {
+                if(res){
+                    post.remove()
+                }else{
+                    const message = createEl("p", "", "message")
+                    message.textContent = "Post wasn't deleted, smth went wrong"
+                    post.append(message)
+                }
+            })
         })
         post.append(deleteButton)
     }
@@ -63,7 +79,7 @@ function deletePost(id){
                 return true
              }else{
                 return tokenData.refreshAccessToken().then(res => {
-                    if(res) return deletePost()
+                    if(res) return deletePost(id)
                         else return false
                 })
             }

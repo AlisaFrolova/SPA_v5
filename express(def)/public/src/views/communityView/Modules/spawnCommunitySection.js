@@ -33,7 +33,7 @@ function getPosts(){
         headers: { 'Content-Type': 'application/json', "authorization": `Bearer ${tokenData.getAccessToken()}` }
         }).then(res => {
             if(res.status === 200){
-                return res.json().then(data => {posts = data; return true})
+                return res.json().then(data => {console.log(data); posts = data; return true})
             }else{
                 return tokenData.refreshAccessToken().then(res => {
                     if(res) return getPosts()

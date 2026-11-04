@@ -16,7 +16,7 @@ export default function homeView(){
     headerContainer.append(createHeader("A", "NALYTICS"))
 
     const backgroundVideo = createEl("video", "", "backgroundVideo")
-    backgroundVideo.setAttribute("autoplay", "")
+    //backgroundVideo.setAttribute("autoplay", "")
     backgroundVideo.setAttribute("loop", "")
     backgroundVideo.setAttribute("disablepictureinpicture", "")
     backgroundVideo.muted = "muted"
