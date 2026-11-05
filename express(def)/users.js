@@ -27,7 +27,7 @@ async function generateStaticUsers(){
  
 async function createUser(username, password) {
   const hashed = await bcrypt.hash(password, 10);
-  users.push({ username, password: hashed });
+  users.push({ username, password: hashed, posts: [] });
 }
  
 async function findUser(username) {
@@ -37,18 +37,16 @@ async function findUser(username) {
 async function getPosts(){
   posts = []
   for (const el of users) {
-    if(el.posts.length > 0){
-      for (const post of el.posts) {
-          post["id"] = posts.length+1
-          posts.push(post)
-      }
+    for (const post of el.posts) {
+      post["id"] = posts.length+1
+      posts.push(post)
     }
   }
   return posts
 }
 
 async function addPost(post){
-  const index = users.indexOf(user => user.username === post.username)
+  const index = users.findIndex(user => user.username === post.author)
   users.at(index).posts.push(post)
 }
 
@@ -56,16 +54,18 @@ async function deletePost(postID){
   for (const user of users) {
     for (const post of user.posts) {
       if(parseInt(post.id) === parseInt(postID.id)){
-        user.posts.splice(posts.indexOf(post), 1)
+        user.posts.splice(user.posts.indexOf(post), 1)
       }
     }
   }
 }
 
 async function updatePost(newPost){
-  const user = users.find(user => user.username === newPost.username)
+  const user = users.find(user => user.username === newPost.author)
+  console.log(users)
   if(user){
     const index = user.posts.findIndex(post => parseInt(post.id) === parseInt(newPost.id))
+    console.log(user.posts)
     if(index !== -1){
       user.posts[index] = newPost
     }

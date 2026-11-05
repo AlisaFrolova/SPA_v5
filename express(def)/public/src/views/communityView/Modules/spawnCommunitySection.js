@@ -2,8 +2,6 @@ import { createEl } from "../../../tools.js"
 import tokenData from "../../../tokenModule.js"
 import spawnPosts from "../Components/spawnPosts.js"
 
-let posts = []
-
 export default function spawnCommunitySection(){
     const cardsContainer = createEl("section", "", "communityPostsContainer")
 
@@ -15,8 +13,6 @@ export default function spawnCommunitySection(){
             loadingText.remove()
 
             if(res){
-                const postsJSON = JSON.stringify(posts)
-                localStorage.setItem("posts", postsJSON)
                 spawnPosts(cardsContainer)
             }else{
                 cardsContainer.append(createEl("p", "No posts yet ...", "errorText"))
@@ -33,7 +29,10 @@ function getPosts(){
         headers: { 'Content-Type': 'application/json', "authorization": `Bearer ${tokenData.getAccessToken()}` }
         }).then(res => {
             if(res.status === 200){
-                return res.json().then(data => {console.log(data); posts = data; return true})
+                return res.json().then(data => {
+                    const postsJSON = JSON.stringify(data)
+                    localStorage.setItem("posts", postsJSON)
+                    return true})
             }else{
                 return tokenData.refreshAccessToken().then(res => {
                     if(res) return getPosts()

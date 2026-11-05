@@ -32,7 +32,6 @@ function updatePost(newPost){ //^^ -> copies in 3-4 places in CommunityView
                         posts.push(newPost)
                     }
                 }
-                console.log(posts)
                 const postsJSON = JSON.stringify(posts)
                 localStorage.setItem("posts", postsJSON)
                 return true
