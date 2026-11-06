@@ -23,10 +23,7 @@ function addPost(post){
              if(res.status === 200){
                 return true
              }else{
-                return tokenData.refreshAccessToken().then(res => {
-                    if(res) return addPost(post)
-                        else return false
-                })
+                return false
             }
         })
     })

@@ -64,10 +64,7 @@ function deletePost(id){
              if(res.status === 200){
                 return true
              }else{
-                return tokenData.refreshAccessToken().then(res => {
-                    if(res) return deletePost(id)
-                        else return false
-                })
+                return false
             }
         })
     })

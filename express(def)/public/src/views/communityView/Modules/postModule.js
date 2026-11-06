@@ -3,7 +3,8 @@ import { getValueFromLocalStorage } from "../../../tools.js"
 import createInfoText from "../Components/createInfoText.js"
 
 export default function getPost(){
-    const post = getPostById(parseInt(localStorage.getItem("articleID")))
+    const post = getPostById(localStorage.getItem("articleID"))
+    if(post === null) return ""
     return spawnPost(post.title, post.author, post.date, post.description, post.id)
 }
 
@@ -38,4 +39,5 @@ function getPostById(id){
             return el
         }
     }
+    return null
 }

@@ -35,10 +35,7 @@ function getPosts(){
                     localStorage.setItem("posts", postsJSON)
                     return true})
             }else{
-                return tokenData.refreshAccessToken().then(res => {
-                    if(res) return getPosts()
-                        else return false
-                })
+                return false
             }
         })
     })

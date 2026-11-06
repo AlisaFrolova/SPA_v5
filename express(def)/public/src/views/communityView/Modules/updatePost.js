@@ -36,10 +36,7 @@ function updatePost(newPost){ //^^ -> copies in 3-4 places in CommunityView
                 localStorage.setItem("posts", postsJSON)
                 return true
             }else{
-                return tokenData.refreshAccessToken().then(res => {
-                if(res) return updatePost(newPost)
-                    else return false
-                })
+                return false
             }
         })
     })

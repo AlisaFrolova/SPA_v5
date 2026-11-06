@@ -1,5 +1,5 @@
 import { createEl } from "../../tools.js"
-import spawnSearchBox from "./Components/spawnSearchBox.js"
+import { spawnSearchBox } from "../../tools.js"
 import spawnVideosSection from './Modules/spawnVideoSection.js'
 
 export default function videoView(){
@@ -8,7 +8,11 @@ export default function videoView(){
 
     section.append(createEl("h1", "Videos", "header"))
 
-    section.append(spawnSearchBox())
+    section.append(spawnSearchBox(() => {
+        localStorage.setItem("pageNumber", 1)
+        localStorage.setItem("videoTheme", searchInput.value)
+        spawnVideosSection()
+    }))
 
     section.append(createEl("section", "", "previewCardsContainer"))
     section.append(createEl("div", "", "navContainer"))

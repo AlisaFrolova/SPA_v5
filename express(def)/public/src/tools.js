@@ -120,9 +120,7 @@ export function getUsername(){
                     return data.username
                 })
             }else{
-                return tokenData.refreshAccessToken().then(res => {
-                    if(res) return getUsername()
-                })
+                return false
             }
         })
     })
@@ -140,10 +138,28 @@ export function getUser(username){
                     return data //object: username, id, posts
                 })
             }else{
-                return tokenData.refreshAccessToken().then(res => {
-                    if(res) return getUsername()
-                })
+                return false
             }
         })
     })
+}
+export function spawnSearchBox(func){
+    const searchBox = createEl("div", "", "searchBox")
+
+    const searchLabel = createEl("label", "Search", "searchLabel")
+    searchLabel.for = "searchInput"
+    searchBox.append(searchLabel)
+
+    const searchInput = createEl("input", "", "searchInput")
+    searchInput.type = "text"
+    searchInput.id = "searchInput"
+    searchBox.append(searchInput)
+
+    const submitButton = createEl("button", "Search", "confirmButton")
+    searchBox.append(submitButton)
+    submitButton.addEventListener("click", () => {
+        func()
+    })
+    
+    return searchBox
 }

@@ -766,6 +766,18 @@ blue-10: #2E3A92 */
 }
 
 /* profile view */
+.profileSection{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    background: #0d1117;
+    width: 100%;
+}
+.profileText{
+    background: #0d1117;
+    font-size: 2rem;
+    color:#2E3A92;
+}
 .profile{
     display: flex;
     flex-direction: column;

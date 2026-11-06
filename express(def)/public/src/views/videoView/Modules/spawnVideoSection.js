@@ -4,8 +4,10 @@ import spawnVideoCards from "../Components/spawnVideoCards.js"
 import spawnNav from "../Components/videoNavigation.js"
 
 export default function spawnVideosSection(defTheme = '' ){
-    const cardsContainer = document.querySelector(".previewCardsContainer")
-    cardsContainer.innerHTML = ""
+    let cardsContainer = document.querySelector(".previewCardsContainer")
+    if(!cardsContainer) cardsContainer = createEl("section", "", "previewCardsContainer")
+    
+        cardsContainer.innerHTML = ""
 
     const loadingText = createEl("p", "Loading videos...", "loadingText")
     cardsContainer.append(loadingText)
