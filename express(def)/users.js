@@ -36,6 +36,18 @@ async function findUser(username) {
   return users.find(u => u.username === username);
 }
 
+async function getUser(username){
+  const index = users.findIndex(user => user.username === username)
+  if(index === -1) return false
+  const user = users[index]
+  const tempUser = {
+    username: user.username,
+    id: user.id,
+    posts: user.posts
+  }
+  return tempUser
+}
+
 async function getPosts(){
   posts = []
   for (const el of users) {
@@ -52,7 +64,6 @@ async function addPost(post){
   if(!isValidID(id, "posts")) id =generateID(6)
   post["id"] = id
   users.at(index).posts.push(post)
-  console.log(posts)
 }
 
 function generateID(length){
@@ -92,4 +103,4 @@ async function updatePost(newPost){
   }
 }
  
-module.exports = { createUser, findUser, getPosts, generateStaticUsers, addPost, deletePost, updatePost };
+module.exports = { createUser, findUser, getPosts, generateStaticUsers, addPost, deletePost, updatePost, getUser };

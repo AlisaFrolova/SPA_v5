@@ -2,7 +2,7 @@ import { createEl } from "../../../tools.js"
 import tokenData from "../../../tokenModule.js"
 import spawnInputBox from "../Components/spawnInputBox.js"
 
-export default function createPost(){
+export default function createNewPost(){
     const section = createEl("section", "", "creationSection")
 
     section.append(createEl("h1", "Create Post", "header"))

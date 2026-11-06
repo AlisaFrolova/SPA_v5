@@ -110,11 +110,12 @@ export function createPreviewCard(imgURL, title, description, id, href){
 }
 
 export function getUsername(){
-    return fetch('/api/username', {   
+    return tokenData.refreshAccessToken().then(() => {
+        return fetch('/api/username', {   
         method: 'GET',
         headers: { 'Content-Type': 'application/json', "authorization": `Bearer ${tokenData.getAccessToken()}` }
         }).then(response => {
-            if(response.status == 200){
+            if(response.status === 200){
                 return response.json().then(data => {
                     return data.username
                 })
@@ -124,4 +125,25 @@ export function getUsername(){
                 })
             }
         })
+    })
+}
+
+export function getUser(username){
+    return tokenData.refreshAccessToken().then(() => {
+        return fetch('/api/user', {   
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', "authorization": `Bearer ${tokenData.getAccessToken()}` },
+        body: JSON.stringify({username: username})
+        }).then(response => {
+            if(response.status === 200){
+                return response.json().then(data => {
+                    return data //object: username, id, posts
+                })
+            }else{
+                return tokenData.refreshAccessToken().then(res => {
+                    if(res) return getUsername()
+                })
+            }
+        })
+    })
 }

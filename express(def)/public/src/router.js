@@ -1,7 +1,6 @@
 import homeView from "./views/homeView/homeView.js"
 import spaceView from "./views/spaceView/spaceView.js"
 import newsView from "./views/newsView/newsView.js"
-import aboutView from "./views/aboutView.js"
 import createAsteroidSection from "./views/spaceView/Modules/asteroidModule.js"
 import signIn from "./views/authView/authView.js"
 import spawnNewsArticle from "./views/newsView/Modules/newsArticleModule.js"
@@ -12,24 +11,25 @@ import videoView from "./views/videoView/videoView.js"
 import spawnVideoArticle from "./views/videoView/Modules/videoArticleModule.js"
 import tokenData from "./tokenModule.js"
 import communityView from "./views/communityView/communityView.js"
-import createPost from "./views/communityView/Modules/createPost.js"
+import createNewPost from "./views/communityView/Modules/createNewPost.js"
 import getPost from "./views/communityView/Modules/postModule.js"
 import spawnUpdatePostSection from "./views/communityView/Modules/updatePost.js"
+import profileView from "./views/profileView/profileView.js"
 
 const routes = {
     "/": homeView,
     "/space": spaceView,
     "/news": newsView,
-    "/about": aboutView,
     "/auth": signIn,
     "/space/asteroids": createAsteroidSection,
     "/news/article": spawnNewsArticle,
     "/video": videoView,
     "/video/article": spawnVideoArticle,
     "/community": communityView,
-    "/community/create": createPost,
+    "/community/create": createNewPost,
     "/community/post": getPost,
-    "/community/update": spawnUpdatePostSection
+    "/community/update": spawnUpdatePostSection,
+    "/profile": profileView
 };
 
 const appContainer = document.getElementById("app")

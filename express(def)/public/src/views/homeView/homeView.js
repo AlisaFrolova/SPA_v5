@@ -1,5 +1,4 @@
-import { createEl } from "../../tools.js"
-import { getUsername } from "../../tools.js"
+import { createEl, getUsername } from "../../tools.js"
 import createAchievementsSection from "./Modules/achievementsModule.js"
 
 export default function homeView(){

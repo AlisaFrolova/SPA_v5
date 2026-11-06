@@ -3,12 +3,12 @@ import tokenData from "../../../tokenModule.js"
 import spawnPosts from "../Components/spawnPosts.js"
 
 export default function spawnCommunitySection(){
-    const cardsContainer = createEl("section", "", "communityPostsContainer")
+    const cardsContainer = createEl("section", "", "postsContainer")
 
     const loadingText = createEl("p", "Loading posts...", "loadingText")
     cardsContainer.append(loadingText)
 
-    fetch("/api/spawn",{ method: 'GET', headers: { 'Content-Type': 'application/json' }}).then(() => {
+    fetch("/api/spawn",{ method: 'GET', headers: { 'Content-Type': 'application/json' }}).then(() => {//! -- ^^
         getPosts().then(res => {
             loadingText.remove()
 
@@ -24,7 +24,8 @@ export default function spawnCommunitySection(){
 }
 
 function getPosts(){
-    return fetch("/api/posts", {   
+    return tokenData.refreshAccessToken().then(() => {
+        return fetch("/api/posts", {   
         method: 'GET',
         headers: { 'Content-Type': 'application/json', "authorization": `Bearer ${tokenData.getAccessToken()}` }
         }).then(res => {
@@ -40,4 +41,5 @@ function getPosts(){
                 })
             }
         })
+    })
 }

@@ -3,7 +3,7 @@ const path = require("path");
 const cors = require("cors");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { createUser, findUser, getPosts, generateStaticUsers, addPost, deletePost, updatePost } = require('./users');
+const { createUser, findUser, getPosts, generateStaticUsers, addPost, deletePost, updatePost, getUser } = require('./users');
 const cookieParser = require("cookie-parser")
 
 const ACCESS_SECRET = 'mySecretWord1'
@@ -131,7 +131,13 @@ app.post("/api/isAuth", (req, res) => {
 })
 
 
-app.get('/api/username', authMiddleware, (req, res) => {
+app.post("/api/user", authMiddleware, async (req, res) => {
+  const user = await getUser(req.body.username)
+  if(!user) return res.status(401).json({message: "User was not found"})
+  return res.status(200).json(user)
+})
+
+app.get("/api/username", authMiddleware, (req,res) => {
   res.json({ username: req.user.username })
 })
 

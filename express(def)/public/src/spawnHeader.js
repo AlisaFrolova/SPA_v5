@@ -11,9 +11,9 @@ export default function spawnHeader(){
     mainNav.append(createAnchor("/", "Home"))
     mainNav.append(createAnchor("/space", "Space"))
     mainNav.append(createAnchor("/news", "News"))
-    mainNav.append(createAnchor("/about", "About Us"))
     mainNav.append(createAnchor("/video", "Videos"))
     mainNav.append(createAnchor("/community", "Community"))
+    mainNav.append(createAnchor("/profile", "Profile"))
     header.append(mainNav)
 
     return header

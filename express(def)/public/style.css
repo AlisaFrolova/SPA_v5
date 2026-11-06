@@ -487,33 +487,6 @@ blue-10: #2E3A92 */
     align-items: center;
 }
 
-/* about */
-.infoSection{
-    width: 100%;
-    min-height: 500px;
-    background-repeat: no-repeat;
-    background-position: right;
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 10px;
-    align-items: center;
-    border: 3px solid #ced0d3;
-}
-.infoSectionHeader, .infoSectionText{
-    background:rgba(0, 0, 0, 0.4);
-    padding: 20px;
-}
-.infoSectionHeader{
-    color: #2E3A92;
-    font-size: 3rem;
-}
-.infoSectionText{
-    color:#ced0d3;
-    font-size: 2rem;
-}
-
 /* Auth */
 .formContainer{
     background: #0d1117;
@@ -672,8 +645,7 @@ blue-10: #2E3A92 */
 .communitySection > h1{
     border-bottom: none;
 }
-.communityPostsContainer{
-    /* border: 1px solid #E2E8F0; */
+.postsContainer{
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -791,4 +763,26 @@ blue-10: #2E3A92 */
     color:#2E3A92;
     background: #E2E8F0;
     text-align: center;
+}
+
+/* profile view */
+.profile{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    background: #0d1117;
+    padding: 40px;
+    align-items: center;
+    box-shadow: 0px 1px 8px 2px #2E3A92;
+}
+.profile > p{
+    font-size: 3.2rem;
+}
+.idText{
+    font-style: italic;
+    text-decoration: underline;
+}
+.usernameText{
+    font-weight: 700;
 }
