@@ -1,6 +1,7 @@
 import { createEl } from "../../../tools.js"
 import tokenData from "../../../tokenModule.js"
 import spawnPosts from "../Components/spawnPosts.js"
+import { spawnNav } from "../../../tools.js"
 
 export default function spawnCommunitySection(){
     const cardsContainer = createEl("section", "", "postsContainer")
@@ -14,6 +15,10 @@ export default function spawnCommunitySection(){
 
             if(res){
                 spawnPosts(cardsContainer)
+
+                const navigation = createEl("div", "", "navContainer")
+                cardsContainer.after(navigation)
+                spawnNav(() => {spawnPosts(cardsContainer)})
             }else{
                 cardsContainer.append(createEl("p", "No posts yet ...", "errorText"))
             }
@@ -33,6 +38,8 @@ function getPosts(){
                 return res.json().then(data => {
                     const postsJSON = JSON.stringify(data)
                     localStorage.setItem("posts", postsJSON)
+                    localStorage.setItem("pageNumber", 1)
+                    localStorage.setItem("maxPageNumber", Math.ceil(data.length/5))
                     return true})
             }else{
                 return false

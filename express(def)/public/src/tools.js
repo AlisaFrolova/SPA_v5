@@ -63,15 +63,49 @@ export function spawnLogoutButton(){
 
     const logoutButton = createEl("button", "Log out", "logoutButton")
     logoutButton.addEventListener("click", () => {
-        tokenData.clearTokens().then(res => {
-            if(res){
-                logoutButton.remove()
-                window.location.replace("/")
-            }
-        })
+        logout()
     })
     return logoutButton
 }
+
+function logout(){
+    tokenData.clearTokens().then(res => {
+        if(res) {
+            const logoutButton = document.querySelector(".logoutButton")
+            if(logoutButton) logoutButton.remove()
+            window.location.replace("/")
+        }
+    })
+}
+export function postMethod(data, path){
+    return tokenData.refreshAccessToken().then(() => {
+        return fetch(path, {
+            method: "POST",
+            headers:{ "Content-Type": "application/json", 
+                    "authorization": `Bearer ${tokenData.getAccessToken()}` },
+            body: JSON.stringify(data)
+        }).then(res => {
+            if(res.status === 200){
+                return true
+            }else {logout(); return false }
+        })
+    })
+}
+// export function getMethod(path, key){
+//     return tokenData.refreshAccessToken().then(() => {
+//         return fetch(path, {
+//             method: "GET", 
+//             headers: { 'Content-Type': 'application/json', "authorization": `Bearer ${tokenData.getAccessToken()}` }
+//         }).then(res => {
+//             if(res.status === 200){
+//                 return res.json().then(data => {
+//                     //!
+//                 })
+//             }else{logout(); return false}
+//         })
+//     })
+// }
+
 
 export const shortenDescription = (description) => {
     if(!description) return ""
@@ -120,6 +154,7 @@ export function getUsername(){
                     return data.username
                 })
             }else{
+                logout()
                 return false
             }
         })
@@ -162,4 +197,40 @@ export function spawnSearchBox(func){
     })
     
     return searchBox
+}
+
+export function spawnNav(func){ 
+    const navContainer = document.querySelector(".navContainer")
+    if(navContainer) navContainer.innerHTML = ""
+    else return 
+
+    const currentPage = parseInt(localStorage.getItem("pageNumber"))
+
+    if(currentPage > 1){
+        if(currentPage > 2) {
+            navContainer.append(createEl("button", 1, "navButton"))
+            navContainer.append(createEl("p", "...", "text"))
+        }
+        navContainer.append(createEl("button", currentPage-1, "navButton"))
+    }
+    navContainer.append(createEl("p", currentPage, "currentPage"))
+
+    const maxPage = parseInt(localStorage.getItem("maxPageNumber"))
+    if(currentPage+1 < maxPage){
+        navContainer.append(createEl("button", currentPage+1, "navButton"))
+    }
+
+    if(currentPage < maxPage) {
+        navContainer.append(createEl("p", "...", "text"))
+        navContainer.append(createEl("button", maxPage, "navButton"))
+    }
+
+    const navButtons = document.querySelectorAll(".navButton")
+    for (const el of navButtons) {
+        el.addEventListener("click", () => {
+            localStorage.setItem("pageNumber", parseInt(el.textContent))
+            spawnNav(func)
+            func()
+        })
+    }
 }

@@ -1,7 +1,7 @@
 import { createEl } from "../../../tools.js"
 import { getVideos } from "../../../NasaApi.js"
 import spawnVideoCards from "../Components/spawnVideoCards.js"
-import spawnNav from "../Components/videoNavigation.js"
+import { spawnNav } from "../../../tools.js"
 
 export default function spawnVideosSection(defTheme = '' ){
     let cardsContainer = document.querySelector(".previewCardsContainer")
@@ -24,7 +24,7 @@ export default function spawnVideosSection(defTheme = '' ){
         if(data){
             spawnVideoCards(cardsContainer)
             localStorage.setItem("pageNumber", pageNumber)
-            spawnNav()
+            spawnNav(spawnVideosSection)
         }else{
             const errorImg = createEl("img", "", "kernelPanicImg")
             errorImg.src = "../../../../images/kernelPanic.jpg"

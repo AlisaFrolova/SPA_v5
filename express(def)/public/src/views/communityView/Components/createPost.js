@@ -1,7 +1,7 @@
 import { createEl } from "../../../tools.js"
 import { shortenDescription } from "../../../tools.js"
 import createInfoText from "./createInfoText.js"
-import tokenData from "../../../tokenModule.js"
+import { postMethod } from "../../../tools.js"
 
 export default function createPost(username, post){ 
     const postCard = createEl("div", "", "post")
@@ -19,7 +19,7 @@ export default function createPost(username, post){
 
         const deleteButton = createEl("button", "Delete", "confirmButton")
         deleteButton.addEventListener("click", () => {
-            deletePost(post.id).then(res => {
+            postMethod({postID: post.id}, "/api/deletePost").then(res => {
                 if(res){
                     postCard.remove()
                 }else{
@@ -51,21 +51,4 @@ export default function createPost(username, post){
     postCard.append(postLink)
 
     return postCard
-}
-
-function deletePost(id){
-    return tokenData.refreshAccessToken().then(() => {
-        return fetch("/api/deletePost", {   
-        method: "POST",
-        headers: { "Content-Type": "application/json", 
-                    "authorization": `Bearer ${tokenData.getAccessToken()}` },
-        body: JSON.stringify({postID: id})
-        }).then(res => {
-             if(res.status === 200){
-                return true
-             }else{
-                return false
-            }
-        })
-    })
 }
