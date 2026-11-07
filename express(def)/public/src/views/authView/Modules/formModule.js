@@ -32,7 +32,7 @@ export default function spawnForm(){
     form.append(loginButton)
 
     //submit button
-    const submitButton = createEl("button", "Submit", "confirmButton")
+    const submitButton = createEl("button", "Submit", "button")
     form.append(submitButton)
 
     const messageContainer = createEl("div", "", "messageContainer")

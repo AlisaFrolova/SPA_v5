@@ -38,8 +38,10 @@ function getPosts(){
                 return res.json().then(data => {
                     const postsJSON = JSON.stringify(data)
                     localStorage.setItem("posts", postsJSON)
+
                     localStorage.setItem("pageNumber", 1)
                     localStorage.setItem("maxPageNumber", Math.ceil(data.length/5))
+                    
                     return true})
             }else{
                 return false

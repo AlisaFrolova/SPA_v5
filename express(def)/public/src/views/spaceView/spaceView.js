@@ -1,6 +1,7 @@
 import { createEl } from "../../tools.js"
 import {getAPOD} from "../../NasaApi.js"
 import { getCurrentDay } from "../../tools.js"
+import { createLink } from "../../tools.js"
 
 export default function spaceView(){
     const app = document.querySelector('#app')
@@ -31,10 +32,8 @@ export default function spaceView(){
     previewImage.src = "https://images-assets.nasa.gov/image/PIA15789/PIA15789~orig.jpg"
     asteroidPreview.prepend(previewImage)
 
-    const asteroidLink = createEl("a", "Read more...", "link")
-    asteroidLink.href = "/space/asteroids"
-    asteroidLink.setAttribute("data-link", "")
-    asteroidPreview.append(asteroidLink)
+    asteroidPreview.append(createLink("Read more...", "/space/asteroids"))
+    
     section.append(asteroidPreview)
 
     return section

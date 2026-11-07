@@ -1,5 +1,6 @@
 import { createEl } from "../../../tools.js"
 import { getValueFromLocalStorage } from "../../../tools.js"
+import { createLink } from "../../../tools.js"
 
 export default function spawnVideoArticle(){
     const article = getArticleById(localStorage.getItem("articleID"))
@@ -34,13 +35,7 @@ function createVideoArticle(videoURL, title, description){
 
         videoArticle.append(createEl("p", description, "videoDescription"))
 
-        const linkContainer = createEl("div", "", "linkContainer")
-        const returnLink = createEl("a", "Return to Videos  -->", "link")
-        returnLink.href = "/video"
-        returnLink.setAttribute("data-link", "")
-        linkContainer.append(returnLink)
-
-        videoArticle.append(linkContainer)
+        videoArticle.append(createLink("Return to Videos  -->", "/video"))
     })
     return videoArticle
 }

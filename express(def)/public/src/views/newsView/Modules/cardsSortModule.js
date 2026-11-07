@@ -33,7 +33,7 @@ export default function spawnSortMenu(cardsContainer){
 
     sortMenu.append(sortContainer)
 
-    const confirmButton = createEl("button", "Apply", "confirmButton")
+    const confirmButton = createEl("button", "Apply", "button")
     confirmButton.addEventListener("click", ()=>{
         cardsContainer.innerHTML = ""
         spawnNewsCards(cardsContainer)

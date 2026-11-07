@@ -1,6 +1,7 @@
 import { createEl } from "../../../tools.js"
 import getDescription from "../Components/getDescription.js"
 import { getValueFromLocalStorage } from "../../../tools.js"
+import { createLink } from "../../../tools.js"
 
 export default function spawnNewsArticle(){
     const article = getArticleById(parseInt(localStorage.getItem("articleID"))) 
@@ -22,10 +23,7 @@ function createNewsArticle(imgURL, title, description){
 
     section.append(infoContainer)
 
-    const returnLink = createEl("a", "Return to News  -->", "link")
-    returnLink.href = "/news"
-    returnLink.setAttribute("data-link", "")
-    section.append(returnLink)
+    section.append(createLink("Return to News  -->", "/news"))
 
     return section
 }

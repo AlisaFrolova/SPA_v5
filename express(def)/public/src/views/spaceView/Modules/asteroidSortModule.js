@@ -21,7 +21,7 @@ export default function createSortMenu(){
 
     asteroidSortMenu.append(asteroidSortContainer)
     
-    const confirmButton = createEl("button", "Apply", "confirmButton")
+    const confirmButton = createEl("button", "Apply", "button")
     const hazardousInput = asteroidSortContainer.children[2].firstElementChild
     confirmButton.addEventListener("click", () => {
         if(!hazardousInput.checked){

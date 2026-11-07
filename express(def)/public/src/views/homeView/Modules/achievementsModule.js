@@ -24,11 +24,6 @@ export default function createAchievementsSection(){
         infoContainer.append(thirdBlock)
         thirdBlock.append(createEl("span", "500+", "accent"))
         thirdBlock.append(createEl("span", "unmanned space flights", "textBlack"))
-    
-        const link = createEl("a", "More About Us", "link")
-        link.href = "/about"
-        link.setAttribute("data-link", "")
-        achievSection.append(link)
-
+        
         return achievSection
 }

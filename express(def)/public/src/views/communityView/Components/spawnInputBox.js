@@ -1,13 +1,14 @@
 import { createEl } from "../../../tools.js"
 import { getCurrentDay } from "../../../tools.js"
 import { getUsername } from "../../../tools.js"
+import { createInputBlock } from "../../../tools.js"
 
 export default function spawnInputBox(func){ 
     const inputSection = createEl("section", "", "inputSection")
     inputSection.append(createInputBlock("title", "Title of post"))
     inputSection.append(createInputBlock("description", "Description of post"))
 
-    const submitButton = createEl("button", "Submit", "confirmButton")
+    const submitButton = createEl("button", "Submit", "button")
     inputSection.append(submitButton)
     submitButton.addEventListener("click", () => {
         const title = document.querySelector(".titleInput").value
@@ -39,19 +40,4 @@ export default function spawnInputBox(func){
     })
 
     return inputSection
-}
-
-function createInputBlock(type, labelText){
-    const inputContainer = createEl("div", "", "inputContainer")
-
-    const input = createEl("input", "", `${type}Input`)
-    input.type = "text"
-    input.id = `${type}Input`
-    inputContainer.append(input)
-
-    const label = createEl("label", labelText, `${type}Label`)
-    label.for = `${type}Input`
-    inputContainer.append(label)
-
-    return inputContainer
 }

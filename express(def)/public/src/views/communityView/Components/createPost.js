@@ -2,6 +2,7 @@ import { createEl } from "../../../tools.js"
 import { shortenDescription } from "../../../tools.js"
 import createInfoText from "./createInfoText.js"
 import { postMethod } from "../../../tools.js"
+import { createLink } from "../../../tools.js"
 
 export default function createPost(username, post){ 
     const postCard = createEl("div", "", "post")
@@ -9,15 +10,13 @@ export default function createPost(username, post){
     if(username === post.author){ 
         postCard.append(createEl("p", "Your Post", "postMark"))
         
-        const updateLink = createEl("a", "Update", "link")//^^ again, the name of class doesnt suit the el (needs to ba changed everywhere to just BUTTON)
-        updateLink.href = "/community/update" //-> to tools, because it was already used in many places
-        updateLink.setAttribute("data-link", "")
+        const updateLink = createLink("Update", "/community/update")
         updateLink.addEventListener("click", () => {
             localStorage.setItem("articleID", post.id)
         })
         postCard.append(updateLink)
 
-        const deleteButton = createEl("button", "Delete", "confirmButton")
+        const deleteButton = createEl("button", "Delete", "button")
         deleteButton.addEventListener("click", () => {
             postMethod({postID: post.id}, "/api/deletePost").then(res => {
                 if(res){

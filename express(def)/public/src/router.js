@@ -15,6 +15,8 @@ import createNewPost from "./views/communityView/Modules/createNewPost.js"
 import getPost from "./views/communityView/Modules/postModule.js"
 import spawnUpdatePostSection from "./views/communityView/Modules/updatePost.js"
 import profileView from "./views/profileView/profileView.js"
+import updateProfileSection from "./views/profileView/Modules/updateProfile.js"
+import updatePassSection from "./views/profileView/Modules/updatePassword.js"
 
 const routes = {
     "/": homeView,
@@ -29,7 +31,9 @@ const routes = {
     "/community/create": createNewPost,
     "/community/post": getPost,
     "/community/update": spawnUpdatePostSection,
-    "/profile": profileView
+    "/profile": profileView,
+    "/profile/update": updateProfileSection,
+    "/profile/password": updatePassSection
 };
 
 const appContainer = document.getElementById("app")

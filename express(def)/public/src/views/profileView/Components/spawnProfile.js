@@ -13,6 +13,7 @@ export default function spawnProfile(username){
             if(!user){ profile.append(errorText); return}
             profile.append(createEl("p", user.username, "usernameText"))
             profile.append(createEl("p", user.id, "idText"))
+            profile.append(createEl("p", user.bio, "bioText"))
 
             const postsContainer = createEl("div", "", "postsContainer")
             if(user.posts){

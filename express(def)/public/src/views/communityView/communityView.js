@@ -1,5 +1,6 @@
 import spawnCommunitySection from "./Modules/spawnCommunitySection.js"
 import { createEl } from "../../tools.js"
+import { createLink } from "../../tools.js"
 
 export default function communityView(){
     //section
@@ -11,10 +12,7 @@ export default function communityView(){
     //link
     const linkBlock = createEl("div", "", "linkBlock")
 
-    const link = createEl("a", "Create Post", "link")
-    link.href = "/community/create"
-    link.setAttribute("data-link", "")
-    linkBlock.append(link)
+    linkBlock.append(createLink("Create Post", "/community/create"))
 
     communitySection.append(linkBlock)
 

@@ -68,7 +68,7 @@ export function spawnLogoutButton(){
     return logoutButton
 }
 
-function logout(){
+export function logout(){
     tokenData.clearTokens().then(res => {
         if(res) {
             const logoutButton = document.querySelector(".logoutButton")
@@ -190,7 +190,7 @@ export function spawnSearchBox(func){
     searchInput.id = "searchInput"
     searchBox.append(searchInput)
 
-    const submitButton = createEl("button", "Search", "confirmButton")
+    const submitButton = createEl("button", "Search", "button")
     searchBox.append(submitButton)
     submitButton.addEventListener("click", () => {
         func()
@@ -233,4 +233,26 @@ export function spawnNav(func){
             func()
         })
     }
+}
+
+export function createLink(text, path){
+    const link = createEl("a", text, "link")
+    link.href = path
+    link.setAttribute("data-link", "")
+    return link
+}
+
+export function createInputBlock(type, labelText){
+    const inputContainer = createEl("div", "", "inputContainer")
+
+    const input = createEl("input", "", `${type}Input`)
+    input.type = "text"
+    input.id = `${type}Input`
+    inputContainer.append(input)
+
+    const label = createEl("label", labelText, `${type}Label`)
+    label.for = `${type}Input`
+    inputContainer.append(label)
+
+    return inputContainer
 }

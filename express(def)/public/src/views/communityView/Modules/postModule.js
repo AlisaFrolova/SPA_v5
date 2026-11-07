@@ -1,6 +1,7 @@
 import { createEl } from "../../../tools.js"
 import { getValueFromLocalStorage } from "../../../tools.js"
 import createInfoText from "../Components/createInfoText.js"
+import { createLink } from "../../../tools.js"
 
 export default function getPost(){
     const post = getPostById(localStorage.getItem("articleID"))
@@ -23,10 +24,7 @@ function spawnPost(title, author, date, description, id){ //-> ^^ (?) -almost th
 
     postContainer.append(createEl("p", description, "postDescription"))
 
-    const returnLink = createEl("a", "Return to Posts  -->", "link")
-    returnLink.href = "/community"
-    returnLink.setAttribute("data-link", "")
-    postContainer.append(returnLink)
+    postContainer.append(createLink("Return to Posts  -->", "/community"))
 
     post.append(postContainer)
 

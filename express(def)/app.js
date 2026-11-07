@@ -3,7 +3,9 @@ const path = require("path");
 const cors = require("cors");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { createUser, findUser, getPosts, generateStaticUsers, addPost, deletePost, updatePost, getUser } = require('./users');
+const { createUser, findUser, getPosts, generateStaticUsers,
+   addPost, deletePost, updatePost,
+    getUser, deleteUser, updateUser, updatePass } = require('./users');
 const cookieParser = require("cookie-parser")
 
 const ACCESS_SECRET = 'mySecretWord1'
@@ -139,6 +141,48 @@ app.post("/api/user", authMiddleware, async (req, res) => {
 
 app.get("/api/username", authMiddleware, (req,res) => {
   res.json({ username: req.user.username })
+})
+
+app.post("/api/deleteUser", authMiddleware, async (req, res) => {
+  const isDeleted = await deleteUser(req.body.username)
+  if(!isDeleted) return res.status(403).json({message: "User was not deleted"})
+  return res.status(200).json({message: "User was deleted"})
+})
+
+app.post("/api/updateUser", authMiddleware, async (req, res) => {
+  const {username, newUsername, newBio} = req.body
+  const userData = {username: username, newUsername: newUsername, newBio: newBio}
+  
+  if(!isValidValue(userData.newUsername)) return res.status(403).json({message: "Invalid user data"})
+
+  const isUpdated = await updateUser(userData) 
+  if(isUpdated){
+    const refreshToken = jwt.sign(
+      { username: userData.newUsername },
+      REFRESH_SECRET,
+      { expiresIn: REFRESH_EXPIRES }
+    )
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      maxAge: REFRESH_EXPIRES*1000
+    })
+
+    return res.status(200).json({message: "User was updated"})
+  }else return res.status(400).json({message: "User was not updated"})
+})
+
+app.post("/api/updatePass", authMiddleware, async (req,res) => {
+  const { username, password, newPassword } = req.body
+  const user = await findUser(username)
+  if (!user) return res.status(401).json({ message: 'Invalid credentials' })
+ 
+  const match = await bcrypt.compare(password, user.password);
+  if (!match) return res.status(401).json({ message: 'Invalid credentials' })
+ 
+  const isUpdated = await updatePass(username, newPassword)
+  if(isUpdated) return res.status(200).json({message: "Password was changed"})
+    else return res.status(403).json({message: "Password was not changed"})
 })
 
 //community-page

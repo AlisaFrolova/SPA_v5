@@ -6,7 +6,7 @@ let posts = []
 async function generateStaticUsers(){
     if(!await findUser("wra1th")){
       const pass1 = await bcrypt.hash("1q2w3e", 10)
-      users.push({ username: "wra1th", id: "09091001",password: pass1, posts: [
+      users.push({ username: "wra1th", id: "09091001",password: pass1, bio: "the worst user ever", posts: [
         { id: "253874", author: "wra1th", title: "Who cares about design", description: "-nobody", date: "2026-09-09"}, //! date in YYYY-MM-DD only
         { id: "411290", author: "wra1th", title: "sin^2 + cos^2 = 1", description: "ctg is useless when tg is nearby", date: "2026-10-01"}
       ]})
@@ -14,12 +14,12 @@ async function generateStaticUsers(){
 
     if(!await findUser("wra11tthh")){
       const pass2 = await bcrypt.hash("0p9o8i", 10)
-       users.push({ username: "wra11tthh", id: "00000000",password: pass2, posts: []})
+       users.push({ username: "wra11tthh", id: "00000000", bio: "No bio yet..0", password: pass2, posts: []})
     }
 
     if(!await findUser("JohnWick")){
       const pass3 = await bcrypt.hash("1234", 10)
-      users.push({ username: "JohnWick", id:"63988077", password: pass3, posts: [
+      users.push({ username: "JohnWick", id:"63988077", bio: "Time to party like it's 2023", password: pass3, posts: [
         { id:"338102", author: "JohnWick", title: "Johnny Silverhand as a calm and sensitive character", description: "lorem lorem lorem lorem lorem", date: "2025-06-07"}
       ]})
     }
@@ -29,11 +29,47 @@ async function createUser(username, password) {
   const hashed = await bcrypt.hash(password, 10);
   let id = generateID(8)
   if(!isValidID(id, "users")) id =generateID(8)
-  users.push({ username, id: id, password: hashed, posts: [] });
+  users.push({ username, id: id, password: hashed, bio: "No bio yet...", posts: [] });
 }
  
 async function findUser(username) {
   return users.find(u => u.username === username);
+}
+
+async function deleteUser(username){
+  const index = users.findIndex(user => user.username === username)
+  if(index === -1) return false
+  users.splice(index, 1)
+  return true
+}
+
+async function updateUser(userData){
+  const index = users.findIndex(user => user.username === userData.username)
+  if(index === -1) return false
+  
+  const newIndex = users.findIndex(user => user.username === userData.newUsername)
+  if(newIndex !== -1) return false
+
+  users[index].username = userData.newUsername
+  if(userData.newBio === "") userData.newBio = "No bio yet..."
+  users[index].bio = userData.newBio
+
+  if(users[index].posts){
+    for (const post of users[index].posts) {
+      post.author = userData.newUsername
+    }
+  }
+
+  return true
+}
+
+async function updatePass(username, newPassword){
+  const index = users.findIndex(user => user.username === username)
+  if(index === -1) return false
+
+  const hashed = await bcrypt.hash(newPassword, 10)
+  users[index].password = hashed
+  return true
 }
 
 async function getUser(username){
@@ -43,6 +79,7 @@ async function getUser(username){
   const tempUser = {
     username: user.username,
     id: user.id,
+    bio: user.bio,
     posts: user.posts
   }
   return tempUser
@@ -103,4 +140,6 @@ async function updatePost(newPost){
   }
 }
  
-module.exports = { createUser, findUser, getPosts, generateStaticUsers, addPost, deletePost, updatePost, getUser };
+module.exports = { createUser, findUser, getPosts, generateStaticUsers,
+   addPost, deletePost, updatePost,
+    getUser, deleteUser, updateUser, updatePass };
