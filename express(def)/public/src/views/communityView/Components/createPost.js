@@ -3,8 +3,9 @@ import { shortenDescription } from "../../../tools.js"
 import createInfoText from "./createInfoText.js"
 import { postMethod } from "../../../tools.js"
 import { createLink } from "../../../tools.js"
+import { getUser } from "../../../tools.js"
 
-export default function createPost(username, post){ 
+export default function createPost(username, post){
     const postCard = createEl("div", "", "post")
 
     if(username === post.author){ 
@@ -48,6 +49,28 @@ export default function createPost(username, post){
         localStorage.setItem("articleID", post.id)
     })
     postCard.append(postLink)
+
+    const starButton = createEl("button", `✯${post.stars}`, "button")
+    starButton.addEventListener("click", () => {
+        if(starButton.classList.contains("starButton")){
+            post.stars = parseInt(post.stars)-1
+            starButton.classList.remove("starButton")
+        }else {
+            post.stars = parseInt(post.stars)+1
+            starButton.classList.add("starButton")
+        }
+        starButton.textContent = `✯${post.stars}`
+        postMethod({postID: post.id, username: username, stars: post.stars}, "/api/starPost").then(res => {
+            console.log(res)
+        })
+    })
+    postCard.append(starButton)
+
+    getUser(username).then(user => {
+        if(user.starredPosts.indexOf(post.id) !== -1) {
+            starButton.classList.add("starButton")
+        }
+    }) 
 
     return postCard
 }

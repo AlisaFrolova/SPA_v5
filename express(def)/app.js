@@ -4,7 +4,7 @@ const cors = require("cors");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { createUser, findUser, getPosts, generateStaticUsers,
-   addPost, deletePost, updatePost,
+   addPost, deletePost, updatePost, starPost,
     getUser, deleteUser, updateUser, updatePass } = require('./users');
 const cookieParser = require("cookie-parser")
 
@@ -212,4 +212,11 @@ app.post("/api/updatePost", authMiddleware, async (req,res) => {
   const post = {author: author, title: title, description: description, date: date, id: id}
   await updatePost(post)//! add some validation
   return res.status(200).json({message: "Post was updated"})
+})
+
+app.post("/api/starPost", authMiddleware, async (req,res) => {
+  const { postID, username, stars} = req.body
+  const isStarred = await starPost(postID, username, stars)
+  if(isStarred) return res.status(200).json({message:"Post stars were updated"})
+    else return res.status(403).json({message: "Post stars were not updated"})
 })
