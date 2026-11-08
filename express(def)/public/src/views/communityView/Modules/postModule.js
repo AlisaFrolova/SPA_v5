@@ -1,34 +1,41 @@
-import { createEl } from "../../../tools.js"
-import { getValueFromLocalStorage } from "../../../tools.js"
+import { createEl, getValueFromLocalStorage, createLink, getUsername } from "../../../tools.js"
 import createInfoText from "../Components/createInfoText.js"
-import { createLink } from "../../../tools.js"
+import createStarButton from "../Components/createStarButton.js"
+import spawnUpdateAndDeleteButtons from "../Components/spawnUpdateAndDeleteButtons.js"
+import spawnCommentsSection from "../Components/spawnCommentsSection.js"
 
 export default function getPost(){
     const post = getPostById(localStorage.getItem("articleID"))
     if(post === null) return ""
-    return spawnPost(post.title, post.author, post.date, post.description, post.id)
+    return spawnPost(post)
 }
 
-function spawnPost(title, author, date, description, id){ //-> ^^ (?) -almost the same as the preview version
-    const post = createEl("section", "", "fullPost")
+function spawnPost(post){ 
+    const postCard = createEl("section", "", "fullPost")
 
-    post.append(createEl("h2", title, "header"))
+    postCard.append(createEl("h2", post.title, "header"))
 
-    const postContainer = createEl("div", "", "postContainer")
+    getUsername().then(username => {
+        const postContainer = createEl("div", "", "postContainer")
+        if(username === post.author) spawnUpdateAndDeleteButtons(post.id, postContainer)
 
-    const infoContainer = createEl("div", "", "postInfoContainer")
-    infoContainer.append(createInfoText("User", author))
-    infoContainer.append(createInfoText("Date", date))
-    infoContainer.append(createInfoText("ID", id))
-    postContainer.append(infoContainer)
+        const infoContainer = createEl("div", "", "postInfoContainer")
+        infoContainer.append(createInfoText("User", post.author))
+        infoContainer.append(createInfoText("Date", post.date))
+        infoContainer.append(createInfoText("ID", post.id))
+        postContainer.append(infoContainer)
 
-    postContainer.append(createEl("p", description, "postDescription"))
+        postContainer.append(createEl("p", post.description, "postDescription"))
 
-    postContainer.append(createLink("Return to Posts  -->", "/community"))
+        postContainer.append(createStarButton(post))
 
-    post.append(postContainer)
+        postContainer.append(createLink("Return to Posts  -->", "/community"))
 
-    return post
+        postCard.append(postContainer)
+
+        spawnCommentsSection()
+    })
+    return postCard
 }
 
 function getPostById(id){

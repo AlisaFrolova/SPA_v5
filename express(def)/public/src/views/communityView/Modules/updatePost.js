@@ -8,15 +8,17 @@ export default function spawnUpdatePostSection(){
 
     section.append(createEl("h1", "Update Post", "header"))
 
-    section.append(spawnInputBox(updatePost))
+    section.append(spawnInputBox(newPost => {
+        newPost.id = localStorage.getItem("articleID")
+        return updatePost(newPost)
+    }))
     
     return section
 }
 
 function updatePost(newPost){
-    newPost.id = localStorage.getItem("articleID")
     return postMethod(newPost, "/api/updatePost").then(res => {
-        if(res.status === 200){
+        if(res){
             const posts = getValueFromLocalStorage("posts")
 
             for (let post of posts) {
@@ -28,8 +30,7 @@ function updatePost(newPost){
             }
             const postsJSON = JSON.stringify(posts)
             localStorage.setItem("posts", postsJSON)
-
             return true
-        }else {return false}
+        }else return false
     })
 }

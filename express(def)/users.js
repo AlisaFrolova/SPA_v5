@@ -8,8 +8,12 @@ async function generateStaticUsers(){
       const pass1 = await bcrypt.hash("1q2w3e", 10)
       users.push({ username: "wra1th", id: "09091001",password: pass1,
          bio: "the worst user ever", starredPosts: ["338102"], posts: [
-        { id: "253874", author: "wra1th", title: "Who cares about design", description: "-nobody", date: "2026-09-09", stars: 2}, //! date in YYYY-MM-DD only
-        { id: "411290", author: "wra1th", title: "sin^2 + cos^2 = 1", description: "ctg is useless when tg is nearby", date: "2026-10-01", stars: 1}
+        { id: "253874", author: "wra1th", title: "Who cares about design",
+           description: "-nobody", date: "2026-09-09",
+            stars: 2, comments:[{author: "JohnWick", text: "I dont care about YOUR opinion", date: "2026-09-10", id: "776600"}]}, //! date in YYYY-MM-DD only
+        { id: "411290", author: "wra1th", title: "sin^2 + cos^2 = 1",
+           description: "ctg is useless", date: "2026-10-01",
+            stars: 1, comments: []}
       ]})
     }
 
@@ -24,7 +28,9 @@ async function generateStaticUsers(){
       users.push({ username: "JohnWick", id:"63988077",
          bio: "Time to party like it's 2023", password: pass3,
           starredPosts: ["253874", "411290"], posts: [
-        { id:"338102", author: "JohnWick", title: "Johnny Silverhand as a calm and sensitive character", description: "lorem lorem lorem lorem lorem", date: "2025-06-07", stars: 6}
+        { id:"338102", author: "JohnWick", title: "Johnny Silverhand as a calm and sensitive character",
+           description: "lorem lorem lorem lorem lorem", date: "2025-06-07",
+            stars: 6, comments: []}
       ]})
     }
 }
@@ -106,6 +112,7 @@ async function addPost(post){
   if(!isValidID(id, "posts")) id =generateID(6)
   post["id"] = id
   post["stars"] = 0
+  post["comments"] = []
   users.at(index).posts.push(post)
 }
 
@@ -134,14 +141,17 @@ async function deletePost(postID){
   }
 }
 
-async function updatePost(newPost){
-  const user = users.find(user => user.username === newPost.author)
+async function updatePost(newTitle, newDescription, author, postID){
+  const user = users.find(user => user.username === author)
   if(user){
-    const index = user.posts.findIndex(post => parseInt(post.id) === parseInt(newPost.id))
+    const index = user.posts.findIndex(post => parseInt(post.id) === parseInt(postID))
     if(index !== -1){
-      user.posts[index] = newPost
+      user.posts[index].title = newTitle
+      user.posts[index].description = newDescription
+      return true
     }
   }
+  return false
 }
 
 async function starPost(postID, username, stars){
@@ -160,7 +170,28 @@ async function starPost(postID, username, stars){
   posts[postIndex].stars = stars
   return true
 }
+
+async function addComment(postID, commentAuthor, date, commentText){
+  const userIndex = users.findIndex(user => user.username === commentAuthor)
+  if(userIndex === -1) return false
+
+  let postIndex = posts.findIndex(post => post.id === postID)
+  if(postIndex === -1) return false
+
+  const comment = { author: commentAuthor, date: date, text: commentText, id: generateID(6)}
+  
+  const postAuthor = posts[postIndex].author
+
+  const index = users.findIndex(user => user.username === postAuthor)
+  if(index === -1) return false
+
+  postIndex = users[index].posts.findIndex(post => post.id === postID)
+  if(postIndex === -1) return false
+
+  users[index].posts[postIndex].comments.push(comment)
+  return true
+}
  
 module.exports = { createUser, findUser, getPosts, generateStaticUsers,
    addPost, deletePost, updatePost, starPost,
-    getUser, deleteUser, updateUser, updatePass };
+    getUser, deleteUser, updateUser, updatePass, addComment };

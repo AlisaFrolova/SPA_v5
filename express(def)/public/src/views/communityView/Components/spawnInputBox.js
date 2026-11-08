@@ -1,5 +1,4 @@
 import { createEl } from "../../../tools.js"
-import { getCurrentDay } from "../../../tools.js"
 import { getUsername } from "../../../tools.js"
 import { createInputBlock } from "../../../tools.js"
 
@@ -18,7 +17,6 @@ export default function spawnInputBox(func){
             getUsername().then(username => { 
                 const post = {
                  author: username,
-                 date: getCurrentDay(),
                  title: title,
                  description: description
                 }

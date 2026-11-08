@@ -756,6 +756,42 @@ blue-10: #2E3A92 */
     background: #E2E8F0;
     text-align: center;
 }
+.commentsSection{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+.commentsContainer{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    justify-content: center;
+    width: 100%;
+}
+.comment{
+    box-shadow: 0px 1px 8px 2px #2E3A92;
+    padding: 30px;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.commentMainText{
+    font-style: italic;
+    font-size: 1.4rem;
+    border-left: 4px solid #E2E8F0;
+    padding: 15px;
+}
+.commentText{
+    font-weight: 200;
+    color: #ffffff;
+}
+.commentDate{
+    font-size: 0.8rem;
+}
 
 /* profile view */
 .profileSection{

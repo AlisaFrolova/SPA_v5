@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { createUser, findUser, getPosts, generateStaticUsers,
    addPost, deletePost, updatePost, starPost,
-    getUser, deleteUser, updateUser, updatePass } = require('./users');
+    getUser, deleteUser, updateUser, updatePass,
+      addComment } = require('./users');
 const cookieParser = require("cookie-parser")
 
 const ACCESS_SECRET = 'mySecretWord1'
@@ -208,10 +209,10 @@ app.post("/api/deletePost", authMiddleware, async (req,res) => {
 })
 
 app.post("/api/updatePost", authMiddleware, async (req,res) => {
-  const { author, title, description, date, id } = req.body
-  const post = {author: author, title: title, description: description, date: date, id: id}
-  await updatePost(post)//! add some validation
-  return res.status(200).json({message: "Post was updated"})
+  const { author, title, description, id } = req.body 
+  const isUpdated = await updatePost(title, description, author, id)//! add some validation
+  if(isUpdated) return res.status(200).json({message: "Post was updated"})
+    else return res.status(403).json({message: "Post was not updated"})
 })
 
 app.post("/api/starPost", authMiddleware, async (req,res) => {
@@ -219,4 +220,11 @@ app.post("/api/starPost", authMiddleware, async (req,res) => {
   const isStarred = await starPost(postID, username, stars)
   if(isStarred) return res.status(200).json({message:"Post stars were updated"})
     else return res.status(403).json({message: "Post stars were not updated"})
+})
+
+app.post("/api/comment", authMiddleware, async(req,res) =>{
+  const {postID, text, author, date} = req.body
+  const isAdded = await addComment(postID, author, date, text)
+  if(isAdded) return res.status(200).json({message: "Comment was added"})
+    else return res.status(403).json({message: "Comment was not added"})
 })
