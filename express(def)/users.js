@@ -1,38 +1,15 @@
 const bcrypt = require('bcryptjs')
 
-const users = []
+let users = []
 let posts = []
 
-async function generateStaticUsers(){
-    if(!await findUser("wra1th")){
-      const pass1 = await bcrypt.hash("1q2w3e", 10)
-      users.push({ username: "wra1th", id: "09091001",password: pass1,
-         bio: "the worst user ever", starredPosts: ["338102"], posts: [
-        { id: "253874", author: "wra1th", title: "Who cares about design",
-           description: "-nobody", date: "2026-09-09",
-            stars: 2, comments:[{author: "JohnWick", text: "I dont care about YOUR opinion", date: "2026-09-10", id: "776600"}]}, //! date in YYYY-MM-DD only
-        { id: "411290", author: "wra1th", title: "sin^2 + cos^2 = 1",
-           description: "ctg is useless", date: "2026-10-01",
-            stars: 1, comments: []}
-      ]})
-    }
-
-    if(!await findUser("wra11tthh")){
-      const pass2 = await bcrypt.hash("0p9o8i", 10)
-       users.push({ username: "wra11tthh", id: "00000000",
-         bio: "No bio yet..0", password: pass2, starredPosts: [], posts: []})
-    }
-
-    if(!await findUser("JohnWick")){
-      const pass3 = await bcrypt.hash("1234", 10)
-      users.push({ username: "JohnWick", id:"63988077",
-         bio: "Time to party like it's 2023", password: pass3,
-          starredPosts: ["253874", "411290"], posts: [
-        { id:"338102", author: "JohnWick", title: "Johnny Silverhand as a calm and sensitive character",
-           description: "lorem lorem lorem lorem lorem", date: "2025-06-07",
-            stars: 6, comments: []}
-      ]})
-    }
+async function spawnUsers(newUsers){
+  users = structuredClone(newUsers)
+  console.log(users, " read")
+  return true
+}
+async function getUsers(){
+  return users
 }
  
 async function createUser(username, password) {
@@ -113,7 +90,7 @@ async function addPost(post){
   post["id"] = id
   post["stars"] = 0
   post["comments"] = []
-  users.at(index).posts.push(post)
+  if(users.at(index)) users.at(index).posts.push(post)
 }
 
 function generateID(length){
@@ -192,6 +169,7 @@ async function addComment(postID, commentAuthor, date, commentText){
   return true
 }
  
-module.exports = { createUser, findUser, getPosts, generateStaticUsers,
+module.exports = { createUser, findUser, getPosts, 
    addPost, deletePost, updatePost, starPost,
-    getUser, deleteUser, updateUser, updatePass, addComment };
+    getUser, deleteUser, updateUser, updatePass, addComment,
+      getUsers, spawnUsers };

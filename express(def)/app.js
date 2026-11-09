@@ -3,11 +3,12 @@ const path = require("path");
 const cors = require("cors");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { createUser, findUser, getPosts, generateStaticUsers,
+const { createUser, findUser, getPosts,
    addPost, deletePost, updatePost, starPost,
     getUser, deleteUser, updateUser, updatePass,
-      addComment } = require('./users');
+      addComment, getUsers, spawnUsers } = require('./users');
 const cookieParser = require("cookie-parser")
+const fs = require('fs/promises');
 
 const ACCESS_SECRET = 'mySecretWord1'
 const ACCESS_EXPIRES = 60*15
@@ -17,6 +18,7 @@ const REFRESH_EXPIRES = 60*60*24 //sec*min*hours
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const FILE_PATH = path.join(__dirname, 'users.json');
 
 app.use(cors());
 app.use(express.json());
@@ -32,11 +34,39 @@ app.listen(PORT, () => {
   console.log(`Server launched on http://localhost:${PORT}`);
 });
 
+async function readUsersFile() {
+     try {
+     const data = await fs.readFile(FILE_PATH, 'utf-8');
+       return JSON.parse(data);
+    } catch (error) {
+       if (error.code === 'ENOENT') {
+           return [];
+         }
+         throw error;
+   }
+}
+app.get('/read', async (req, res) => {
+     try {
+      const users = await readUsersFile();
+      const isSpawned = await spawnUsers(users)
+      if(isSpawned) return res.status(200)
+     } catch (error) {
+       console.error(error);
+     res.status(500).json({ error: 'Error while reading file' });
+   }
+});
+app.get('/write', async (req, res) => {
+   try {
+    let users = await getUsers()
+    console.log(users, " writing")
+    await fs.writeFile(FILE_PATH, JSON.stringify(users, null, 2), 'utf-8');
 
-app.get("/api/spawn", async (req, res) => {
-  await generateStaticUsers()
-  res.status(200).json({message: "Static users were created"})
-})
+    return res.status(201)
+    } catch (error) {
+       console.error(error);
+       return res.status(500).json({ error: 'Ошибка при записи в файл' });
+    }
+});
 
 
 //register

@@ -86,6 +86,7 @@ export function postMethod(data, path){
             body: JSON.stringify(data)
         }).then(res => {
             if(res.status === 200){
+                fetch("/write", { method: 'GET', headers: { 'Content-Type': 'application/json' }})
                 return true
             }else {logout(); return false }
         })

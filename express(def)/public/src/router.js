@@ -79,7 +79,6 @@ function spawnHeaderAndLogoutButton(){//--
 }
 
 function isAuth(){//-> (?) !!!
-    fetch("/api/spawn",{ method: 'GET', headers: { 'Content-Type': 'application/json' }})
     return fetch("/api/isAuth", {
         method: "POST",
         credentials: "include"

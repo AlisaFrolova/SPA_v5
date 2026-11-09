@@ -38,6 +38,8 @@ export default function homeView(){
 
     section.append(createAchievementsSection())
 
+    fetch("/read", { method: 'GET', headers: { 'Content-Type': 'application/json' }})
+    
     return section
 }
 

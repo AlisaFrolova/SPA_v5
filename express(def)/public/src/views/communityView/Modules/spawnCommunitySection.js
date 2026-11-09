@@ -9,7 +9,7 @@ export default function spawnCommunitySection(){
     const loadingText = createEl("p", "Loading posts...", "loadingText")
     cardsContainer.append(loadingText)
 
-    fetch("/api/spawn",{ method: 'GET', headers: { 'Content-Type': 'application/json' }}).then(() => {//! -- ^^
+    //fetch("/api/spawn",{ method: 'GET', headers: { 'Content-Type': 'application/json' }}).then(() => {//! -- ^^
         getPosts().then(res => {
             loadingText.remove()
 
@@ -23,7 +23,7 @@ export default function spawnCommunitySection(){
                 cardsContainer.append(createEl("p", "No posts yet ...", "errorText"))
             }
         })
-    })
+    //})
 
     return cardsContainer
 }
