@@ -5,7 +5,7 @@ let posts = []
 
 async function spawnUsers(newUsers){
   users = structuredClone(newUsers)
-  console.log(users, " read")
+  console.log(users, " read")//
   return true
 }
 async function getUsers(){
