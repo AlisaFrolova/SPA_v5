@@ -1,10 +1,68 @@
 [
   {
-    "username": "neeeeew",
-    "id": "83307811",
-    "password": "$2b$10$e14g/9WYPAe53ojlppSzgutur8WPBJrS3oxc8aRbrexUxysn8KGbG",
+    "username": "wra1th",
+    "id": "37762250",
+    "password": "$2b$10$tVXfeQwZAA7d0m79vQF9H.L05/7Q9oUs0plyzAWgdTZX/wcYQEYtS",
     "bio": "No bio yet...",
-    "starredPosts": [],
+    "starredPosts": [
+      "481112",
+      "087768"
+    ],
+    "posts": [
+      {
+        "author": "wra1th",
+        "title": "its like the 10th try of launching this file reading/writing",
+        "description": "anyway if this post will live till the end, then it was succesfull lol",
+        "date": "2026-11-10 ",
+        "id": "087768",
+        "stars": 3,
+        "comments": [
+          {
+            "author": "JohnWick",
+            "date": "2026-11-10 ",
+            "text": "new",
+            "id": "231343"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "username": "wra11tthh",
+    "id": "21451018",
+    "password": "$2b$10$Ui8FpBvkJl8GqDf3nI0HN.rgH4Zlp2.EVOITFnud8aZUXGnMQEbnu",
+    "bio": "No bio yet...",
+    "starredPosts": [
+      "087768"
+    ],
+    "posts": [
+      {
+        "author": "wra11tthh",
+        "title": "1. How to be the most succesfull cyberbuller ever",
+        "description": "step 1: visit Community View",
+        "date": "2026-11-10 ",
+        "id": "481112",
+        "stars": 2,
+        "comments": [
+          {
+            "author": "JohnWick",
+            "date": "2026-11-10 ",
+            "text": "wwwww",
+            "id": "148701"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "username": "JohnWick",
+    "id": "55542557",
+    "password": "$2b$10$fODccHLbueixp2NgpBCYSOZfaURrqnpZSfK3/BfQKIp2kb366xkI6",
+    "bio": "No bio yet...",
+    "starredPosts": [
+      "481112",
+      "087768"
+    ],
     "posts": []
   }
 ]

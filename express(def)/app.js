@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const { createUser, findUser, getPosts,
    addPost, deletePost, updatePost, starPost,
     getUser, deleteUser, updateUser, updatePass,
-      addComment, getUsers, spawnUsers } = require('./users');
+      addComment, getUsers, spawnUsers, deleteComment } = require('./users');
 const cookieParser = require("cookie-parser")
 const fs = require('fs/promises');
 
@@ -257,4 +257,11 @@ app.post("/api/comment", authMiddleware, async(req,res) =>{
   const isAdded = await addComment(postID, author, date, text)
   if(isAdded) return res.status(200).json({message: "Comment was added"})
     else return res.status(403).json({message: "Comment was not added"})
+})
+
+app.post("/api/deleteComment", authMiddleware, async  (req, res) => {
+  const { commentID, postID } = req.body
+  const isDeleted = await deleteComment(commentID, postID)
+  if(isDeleted) return res.status(200).json({message: "Comment was deleted"})
+  else return res.status(403).json({message:"Comment was not deleted"})
 })

@@ -1,5 +1,6 @@
 import { createEl, createInputBlock, postMethod, getCurrentDay,
      getUsername, getValueFromLocalStorage } from "../../../tools.js"
+import getPosts from "./getPosts.js"
 
 export default function spawnCommentsSection(){
     const commentsSection = createEl("section", "", "commentsSection")
@@ -8,15 +9,31 @@ export default function spawnCommentsSection(){
 
     const commentsContainer = createEl("div", "", "commentsContainer")
 
-    const posts = getValueFromLocalStorage("posts")
-    for (let el of posts) {
-        if(parseInt(el.id) === parseInt(localStorage.getItem("articleID"))){
-            const index = posts.indexOf(el)
-            for (const comment of posts[index].comments) {
-                commentsContainer.append(createComment(comment))
+    getUsername().then(username => {
+        const posts = getValueFromLocalStorage("posts")
+        for (let el of posts) {
+            if(parseInt(el.id) === parseInt(localStorage.getItem("articleID"))){
+                const index = posts.indexOf(el)
+                for (const comment of posts[index].comments) {
+                    const newComment = createComment(comment)
+                    if(comment.author === username || posts[index].author === username){
+                        const deleteButton = createEl("button", "Delete", "button")
+                        deleteButton.addEventListener("click", () => {
+                            postMethod({commentID: comment.id, postID: posts[index].id}, "/api/deleteComment").then(res => {
+                                if(res){
+                                    newComment.remove()
+                                    getPosts()
+                                }
+                            })
+                        })
+                        newComment.append(deleteButton)
+                    }
+                    commentsContainer.append(newComment)
+                }
             }
         }
-    }
+    })
+    
 
     const createButton = createEl("button", "Create", "button")
     createButton.addEventListener("click", () => {
@@ -39,15 +56,7 @@ export default function spawnCommentsSection(){
 
                         messageContainer.append(createEl("p", "Comment was created", "messageText"))
 
-                        const posts = getValueFromLocalStorage("posts")
-                        for (let el of posts) {
-                            if(parseInt(el.id) === parseInt(localStorage.getItem("articleID"))){
-                                const index = posts.indexOf(el)
-                                posts[index].comments.push(comment)
-                            }
-                        }
-                        const postsJSON = JSON.stringify(posts)
-                        localStorage.setItem("posts", postsJSON)
+                        getPosts()
                     }else{
                         messageContainer.append(createEl("p", "Comment was not created", "messageText"))
                     }

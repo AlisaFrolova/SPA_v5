@@ -5,7 +5,7 @@ let posts = []
 
 async function spawnUsers(newUsers){
   users = structuredClone(newUsers)
-  console.log(users, " read")//
+  console.log(users, " read")
   return true
 }
 async function getUsers(){
@@ -168,8 +168,26 @@ async function addComment(postID, commentAuthor, date, commentText){
   users[index].posts[postIndex].comments.push(comment)
   return true
 }
+
+async function deleteComment(commentID, postID){
+  let postIndex = posts.findIndex(post => post.id === postID)
+  if(postIndex === -1) return false
+
+  const authorIndex = users.findIndex(user => user.username === posts[postIndex].author)
+  if(authorIndex === -1) return false
+
+  postIndex = users[authorIndex].posts.findIndex(post => post.id === postID)
+  if(postIndex === -1) return false
+
+  const commentIndex = users[authorIndex].posts[postIndex].comments.findIndex(comment => comment.id === commentID)
+  if(commentIndex === -1) return false
+
+  users[authorIndex].posts[postIndex].comments.splice(commentIndex, 1)
+
+  return true
+}
  
 module.exports = { createUser, findUser, getPosts, 
    addPost, deletePost, updatePost, starPost,
     getUser, deleteUser, updateUser, updatePass, addComment,
-      getUsers, spawnUsers };
+      getUsers, spawnUsers, deleteComment };
