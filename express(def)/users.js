@@ -68,7 +68,8 @@ async function getUser(username){
     id: user.id,
     bio: user.bio,
     starredPosts: user.starredPosts,
-    posts: user.posts
+    posts: user.posts,
+    role: user.role
   }
   return tempUser
 }
