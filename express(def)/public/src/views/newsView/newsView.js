@@ -1,5 +1,5 @@
-import { createEl } from "../../tools.js"
 import spawnNewsSection from "./Modules/spawnNewsSection.js"
+import { createEl } from "../../tools/DOM_tools.js"
 
 export default function newsView(){
     const app = document.querySelector('#app')

@@ -1,7 +1,8 @@
-import { createEl, shortenDescription } from "../../../tools.js"
 import createInfoText from "./createInfoText.js"
 import createStarButton from "./createStarButton.js"
 import spawnUpdateAndDeleteButtons from "./spawnUpdateAndDeleteButtons.js"
+import { createEl } from "../../../tools/DOM_tools.js"
+import { shortenDescription } from "../../../tools/DataTools.js"
 
 export default function createPost(username, post){
     const postCard = createEl("div", "", "post")

@@ -1,6 +1,6 @@
-import { createEl } from "../../tools.js"
-import { spawnSearchBox } from "../../tools.js"
 import spawnVideosSection from './Modules/spawnVideoSection.js'
+import { createEl } from "../../tools/DOM_tools.js"
+import { spawnSearchBox } from "../../tools/DOM_tools.js"
 
 export default function videoView(){
     const saveTheme = localStorage.getItem("videoTheme")

@@ -1,7 +1,6 @@
-import { getValueFromLocalStorage } from "../../../tools.js"
 import getDescription from "./getDescription.js"
-import { shortenDescription } from "../../../tools.js"
-import { createPreviewCard } from "../../../tools.js"
+import { getValueFromLocalStorage, shortenDescription } from "../../../tools/DataTools.js"
+import { createPreviewCard } from "../../../tools/DOM_tools.js"
 
 export default function spawnNewsCards(){
     const container = document.querySelector(".previewCardsContainer")

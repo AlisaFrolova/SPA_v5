@@ -1,7 +1,5 @@
-import { createEl } from "../../../tools.js"
-import { postMethod } from "../../../tools.js"
-import { createInputBlock } from "../../../tools.js"
-import { getUsername } from "../../../tools.js"
+import { createEl, createInputBlock } from "../../../tools/DOM_tools.js"
+import { postMethod, getUsername } from "../../../tools/API_tools.js"
 
 export default function updateProfileSection(){
  const section = createEl("section", "", "updateSection")

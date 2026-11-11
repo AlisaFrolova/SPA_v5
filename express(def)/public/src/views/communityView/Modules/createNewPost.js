@@ -1,7 +1,7 @@
-import { createEl } from "../../../tools.js"
 import spawnInputBox from "../Components/spawnInputBox.js"
-import { postMethod } from "../../../tools.js"
-import { getCurrentDay } from "../../../tools.js"
+import { getCurrentDay } from "../../../tools/DataTools.js"
+import { createEl } from "../../../tools/DOM_tools.js"
+import { postMethod } from "../../../tools/API_tools.js"
 
 export default function createNewPost(){
     const section = createEl("section", "", "creationSection")

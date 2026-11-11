@@ -1,6 +1,6 @@
-import { getValueFromLocalStorage } from "../../../tools.js"
-import { getUsername } from "../../../tools.js"
 import createPost from "./createPost.js"
+import { getValueFromLocalStorage } from "../../../tools/DataTools.js"
+import { getUsername } from "../../../tools/API_tools.js"
 
 export default function spawnPosts(container){
     container.innerHTML = ""

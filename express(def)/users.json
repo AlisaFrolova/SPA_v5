@@ -16,14 +16,16 @@
         "date": "2026-11-10 ",
         "id": "087768",
         "stars": 3,
-        "comments": [
-          {
-            "author": "JohnWick",
-            "date": "2026-11-10 ",
-            "text": "new",
-            "id": "231343"
-          }
-        ]
+        "comments": []
+      },
+      {
+        "author": "wra1th",
+        "title": "newpost11",
+        "description": "1111",
+        "date": "2026-11-11 ",
+        "id": "052221",
+        "stars": 0,
+        "comments": []
       }
     ]
   },

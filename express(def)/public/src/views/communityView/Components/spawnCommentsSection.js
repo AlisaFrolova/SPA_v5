@@ -1,6 +1,7 @@
-import { createEl, createInputBlock, postMethod, getCurrentDay,
-     getUsername, getValueFromLocalStorage } from "../../../tools.js"
 import getPosts from "./getPosts.js"
+import { getValueFromLocalStorage, getCurrentDay } from "../../../tools/DataTools.js"
+import { createEl, createInputBlock } from "../../../tools/DOM_tools.js"
+import { postMethod, getUsername } from "../../../tools/API_tools.js"
 
 export default function spawnCommentsSection(){
     const commentsSection = createEl("section", "", "commentsSection")

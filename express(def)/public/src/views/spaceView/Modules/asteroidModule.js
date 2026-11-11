@@ -1,9 +1,8 @@
 import spawnCards from "../Components/spawnCards.js"
 import createSortMenu from "./asteroidSortModule.js"
 import { getAsteroids } from "../../../NasaApi.js"
-import { createEl } from "../../../tools.js"
-import { getCurrentDay } from "../../../tools.js"
-import { getPreviousDay } from "../../../tools.js"
+import { createEl } from "../../../tools/DOM_tools.js"
+import { getCurrentDay, getPreviousDay } from "../../../tools/DataTools.js"
 
 export default function createAsteroidSection(){
     const asteroidSection = createEl("section", "", "asteroidSection")

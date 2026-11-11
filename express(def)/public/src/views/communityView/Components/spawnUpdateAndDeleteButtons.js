@@ -1,4 +1,5 @@
-import { createEl, postMethod, createLink } from "../../../tools.js"
+import { createEl, createLink } from "../../../tools/DOM_tools.js"
+import { postMethod } from "../../../tools/API_tools.js"
 
 export default function spawnUpdateAndDeleteButtons(postID, postCard){
     postCard.append(createEl("p", "Your Post", "postMark"))

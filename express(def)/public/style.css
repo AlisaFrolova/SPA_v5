@@ -466,6 +466,7 @@ blue-10: #2E3A92 */
     justify-content: flex-start;
     align-items: center;
 }
+
 .previewText .link{
     font-size: 2rem;
     position: relative;

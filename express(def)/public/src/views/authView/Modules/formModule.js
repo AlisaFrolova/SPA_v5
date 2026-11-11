@@ -1,7 +1,7 @@
-import { createEl } from "../../../tools.js"
 import { register } from "../Components/registerAndLogin.js"
 import { login } from "../Components/registerAndLogin.js"
 import createInputBlock from "../Components/createInputBlock.js"
+import { createEl } from "../../../tools/DOM_tools.js"
 
 export default function spawnForm(){
     const formContainer = createEl("section", "", "formContainer")

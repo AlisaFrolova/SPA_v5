@@ -1,6 +1,6 @@
 import tokenData from "../../tokenModule.js"
-import { spawnLogoutButton } from "../../tools.js"
 import spawnForm from "./Modules/formModule.js"
+import { spawnLogoutButton } from "../../tools/authTools.js"
 
 export default function signIn(){
     tokenData.refreshAccessToken().then(res =>{

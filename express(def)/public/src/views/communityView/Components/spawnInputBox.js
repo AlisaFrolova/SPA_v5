@@ -1,6 +1,5 @@
-import { createEl } from "../../../tools.js"
-import { getUsername } from "../../../tools.js"
-import { createInputBlock } from "../../../tools.js"
+import { createEl, createInputBlock } from "../../../tools/DOM_tools.js"
+import { getUsername } from "../../../tools/API_tools.js"
 
 export default function spawnInputBox(func){ 
     const inputSection = createEl("section", "", "inputSection")

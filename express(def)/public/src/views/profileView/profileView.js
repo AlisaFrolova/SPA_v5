@@ -1,9 +1,7 @@
-import { createEl, postMethod } from "../../tools.js"
 import spawnProfile from "./Components/spawnProfile.js"
-import { spawnSearchBox } from "../../tools.js"
-import { getUsername } from "../../tools.js"
-import { createLink } from "../../tools.js"
-import { logout } from "../../tools.js"
+import { logout } from "../../tools/authTools.js"
+import { createEl, spawnSearchBox, createLink } from "../../tools/DOM_tools.js"
+import { postMethod, getUsername } from "../../tools/API_tools.js"
 
 export default function profileView(){
     const section = createEl("section", "", "profileSection")

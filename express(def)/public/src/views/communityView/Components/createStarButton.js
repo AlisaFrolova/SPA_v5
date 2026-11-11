@@ -1,5 +1,6 @@
-import { createEl, postMethod, getUsername,
-     getUser, getValueFromLocalStorage } from "../../../tools.js"
+import { getValueFromLocalStorage } from "../../../tools/DataTools.js"
+import { createEl } from "../../../tools/DOM_tools.js"
+import { postMethod, getUser, getUsername } from "../../../tools/API_tools.js"
 
 export default function createStarButton(post){
     const starButton = createEl("button", `✯${post.stars}`, "button")

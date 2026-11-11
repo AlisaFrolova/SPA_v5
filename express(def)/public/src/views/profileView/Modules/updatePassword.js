@@ -1,7 +1,5 @@
-import { postMethod } from "../../../tools.js"
-import { createEl } from "../../../tools.js"
-import { createInputBlock } from "../../../tools.js"
-import { getUsername } from "../../../tools.js"
+import { createEl, createInputBlock } from "../../../tools/DOM_tools.js"
+import { postMethod, getUsername } from "../../../tools/API_tools.js"
 
 export default function updatePassSection(){//! ^^ almost the same as the Update Profile, -> (?)
     const section = createEl("section", "", "updateSection")
@@ -17,7 +15,8 @@ export default function updatePassSection(){//! ^^ almost the same as the Update
         const password = document.querySelector(".passwordInput").value
         const newPassword= document.querySelector(".newPasswordInput").value
 
-        getUsername().then(res => {
+        if(password !== "" && newPassword !== ""){
+            getUsername().then(res => {
             const userData = {
                 password: password,
                 newPassword: newPassword,
@@ -37,6 +36,9 @@ export default function updatePassSection(){//! ^^ almost the same as the Update
                 setTimeout(() => {message.remove()}, 5000)
             })
         })
+        }else{
+            //blablabla
+        }
     })
     inputContainer.append(submitButton)
 

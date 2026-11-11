@@ -4,7 +4,6 @@ import newsView from "./views/newsView/newsView.js"
 import createAsteroidSection from "./views/spaceView/Modules/asteroidModule.js"
 import signIn from "./views/authView/authView.js"
 import spawnNewsArticle from "./views/newsView/Modules/newsArticleModule.js"
-import { spawnLogoutButton } from "./tools.js"
 import spawnHeader from "./spawnHeader.js"
 import spawnFooter from "./spawnFooter.js"
 import videoView from "./views/videoView/videoView.js"
@@ -17,6 +16,7 @@ import spawnUpdatePostSection from "./views/communityView/Modules/updatePost.js"
 import profileView from "./views/profileView/profileView.js"
 import updateProfileSection from "./views/profileView/Modules/updateProfile.js"
 import updatePassSection from "./views/profileView/Modules/updatePassword.js"
+import { spawnLogoutButton } from "./tools/authTools.js"
 
 const routes = {
     "/": homeView,

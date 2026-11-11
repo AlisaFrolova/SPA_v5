@@ -1,6 +1,6 @@
 import spawnCards from "../Components/spawnCards.js"
-import { createEl } from "../../../tools.js"
-import { getValueFromLocalStorage } from "../../../tools.js"
+import { createEl } from "../../../tools/DOM_tools.js"
+import { getValueFromLocalStorage } from "../../../tools/DataTools.js"
 
 let tempArr = []
 

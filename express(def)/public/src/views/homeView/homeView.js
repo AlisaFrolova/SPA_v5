@@ -1,5 +1,6 @@
-import { createEl, getUsername } from "../../tools.js"
 import createAchievementsSection from "./Modules/achievementsModule.js"
+import { createEl } from "../../tools/DOM_tools.js"
+import { getUsername } from "../../tools/API_tools.js"
 
 export default function homeView(){
     const app = document.querySelector('#app')

@@ -1,7 +1,7 @@
-import { createEl } from "../../../tools.js"
 import spawnInputBox from "../Components/spawnInputBox.js"
-import { getValueFromLocalStorage } from "../../../tools.js"
-import { postMethod } from "../../../tools.js"
+import { postMethod } from "../../../tools/API_tools.js"
+import { createEl } from "../../../tools/DOM_tools.js"
+import { getValueFromLocalStorage } from "../../../tools/DataTools.js"
 
 export default function spawnUpdatePostSection(){
     const section = createEl("section", "", "creationSection")

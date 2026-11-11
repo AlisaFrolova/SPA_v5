@@ -1,5 +1,5 @@
-import { createEl } from "./tools.js"
-import { createLink } from "./tools.js"
+import { createEl } from "./tools/DOM_tools.js"
+import { createLink } from "./tools/DOM_tools.js"
 
 export default function spawnHeader(){
     const header = createEl("header", "", "header")

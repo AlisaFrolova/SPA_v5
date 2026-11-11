@@ -1,8 +1,10 @@
-import { createEl, getValueFromLocalStorage, createLink, getUsername } from "../../../tools.js"
 import createInfoText from "../Components/createInfoText.js"
 import createStarButton from "../Components/createStarButton.js"
 import spawnUpdateAndDeleteButtons from "../Components/spawnUpdateAndDeleteButtons.js"
 import spawnCommentsSection from "../Components/spawnCommentsSection.js"
+import { createEl, createLink } from "../../../tools/DOM_tools.js"
+import { getUsername } from "../../../tools/API_tools.js"
+import { getValueFromLocalStorage } from "../../../tools/DataTools.js"
 
 export default function getPost(){
     const post = getPostById(localStorage.getItem("articleID"))
@@ -29,7 +31,7 @@ function spawnPost(post){
 
         postContainer.append(createStarButton(post))
 
-        postContainer.append(createLink("Return to Posts  -->", "/community"))
+        postContainer.append(createLink("To Posts  -->", "/community"))
 
         postCard.append(postContainer)
 

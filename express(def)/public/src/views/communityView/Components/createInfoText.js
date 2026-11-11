@@ -1,4 +1,4 @@
-import { createEl } from "../../../tools.js"
+import { createEl } from "../../../tools/DOM_tools.js"
 
 export default function createInfoText(key, value){
     const postInfoText = createEl("p", `${key}: `, "postInfoText")

@@ -1,8 +1,6 @@
-import { getUser } from "../../../tools.js"
-import { createEl } from "../../../tools.js"
 import createPost from "../../communityView/Components/createPost.js"
-import { getUsername } from "../../../tools.js"
-
+import { getUser, getUsername } from "../../../tools/API_tools.js"
+import { createEl } from "../../../tools/DOM_tools.js"
 export default function spawnProfile(username){
     const profile = createEl("section", "", "profile")
 

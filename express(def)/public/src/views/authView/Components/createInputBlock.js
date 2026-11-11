@@ -1,4 +1,4 @@
-import { createEl } from "../../../tools.js"
+import { createEl } from "../../../tools/DOM_tools.js"
 
 export default function createInputBlock(type){
     const container = createEl("div", "", "inputContainer")

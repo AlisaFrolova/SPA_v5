@@ -1,7 +1,6 @@
-import { createEl } from "../../../tools.js"
 import { getVideos } from "../../../NasaApi.js"
 import spawnVideoCards from "../Components/spawnVideoCards.js"
-import { spawnNav } from "../../../tools.js"
+import { createEl, spawnNav } from "../../../tools/DOM_tools.js"
 
 export default function spawnVideosSection(defTheme = '' ){
     let cardsContainer = document.querySelector(".previewCardsContainer")

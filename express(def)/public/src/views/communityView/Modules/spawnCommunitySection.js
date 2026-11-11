@@ -1,7 +1,6 @@
-import { createEl } from "../../../tools.js"
 import getPosts from "../Components/getPosts.js"
 import spawnPosts from "../Components/spawnPosts.js"
-import { spawnNav } from "../../../tools.js"
+import { createEl, spawnNav } from "../../../tools/DOM_tools.js"
 
 export default function spawnCommunitySection(){
     const cardsContainer = createEl("section", "", "postsContainer")
