@@ -16,7 +16,9 @@ import spawnUpdatePostSection from "./views/communityView/Modules/updatePost.js"
 import profileView from "./views/profileView/profileView.js"
 import updateProfileSection from "./views/profileView/Modules/updateProfile.js"
 import updatePassSection from "./views/profileView/Modules/updatePassword.js"
+import spawnAdminMenu from "./adminMenu.js"
 import { spawnLogoutButton } from "./tools/authTools.js"
+import { isAdmin } from "./tools/API_tools.js"
 
 const routes = {
     "/": homeView,
@@ -75,7 +77,16 @@ export const initRouter = () => {
 
 function spawnHeaderAndLogoutButton(){//--
     appContainer.prepend(spawnHeader())
-    document.querySelector(".header").append(spawnLogoutButton())//-> 
+    const container = document.createElement("div")
+    container.classList.add("buttonContainer")
+    container.append(spawnLogoutButton())
+    document.querySelector(".header").append(container)//-> 
+
+    isAdmin().then(res => {
+        if(res){
+            spawnAdminMenu()
+        }
+    })
 }
 
 function isAuth(){//-> (?) !!!

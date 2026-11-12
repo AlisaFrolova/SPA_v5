@@ -6,7 +6,8 @@ const bcrypt = require('bcryptjs');
 const { createUser, findUser, getPosts,
    addPost, deletePost, updatePost, starPost,
     getUser, deleteUser, updateUser, updatePass,
-      addComment, getUsers, spawnUsers, deleteComment } = require('./users');
+      addComment, getUsers, spawnUsers, deleteComment,
+        isAdmin, updateRole} = require('./users');
 const cookieParser = require("cookie-parser")
 const fs = require('fs/promises');
 
@@ -174,6 +175,11 @@ app.get("/api/username", authMiddleware, (req,res) => {
   res.json({ username: req.user.username })
 })
 
+app.get("/api/isAdmin", authMiddleware, async (req,res) =>{
+  const check = await isAdmin(req.user.username)
+  res.json({isAdmin: check})
+})
+
 app.post("/api/deleteUser", authMiddleware, async (req, res) => {
   const isDeleted = await deleteUser(req.body.username)
   if(!isDeleted) return res.status(403).json({message: "User was not deleted"})
@@ -227,8 +233,9 @@ app.get("/api/posts", authMiddleware, async (req, res) => {
 app.post("/api/addPost", authMiddleware, async (req, res) => {
   const { author, title, description, date } = req.body
   const post = {author: author, title: title, description: description, date: date}
-  await addPost(post)//! add some validation
-  return res.status(200).json({message: "Post was added"})
+  const isAdded = await addPost(post)
+  if(isAdded) return res.status(200).json({message: "Post was added"})
+    else return res.status(403).json({message: "Post was not added"})
 })
 
 app.post("/api/deletePost", authMiddleware, async (req,res) => {

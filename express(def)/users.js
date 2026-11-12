@@ -11,12 +11,19 @@ async function spawnUsers(newUsers){
 async function getUsers(){
   return users
 }
+
+//validation tools
+function getUserIndex(userValue, key){
+  const userIndex = users.findIndex(user => user[key] === userValue)
+  if(userIndex === -1) return false
+  else return userIndex
+}
  
 async function createUser(username, password) {
   const hashed = await bcrypt.hash(password, 10);
   let id = generateID(8)
   if(!isValidID(id, "users")) id =generateID(8)
-  users.push({ username, id: id, password: hashed, bio: "No bio yet...", starredPosts:[], posts: [] });
+  users.push({ username, id: id, password: hashed, bio: "No bio yet...", role:"user", starredPosts:[], posts: [] });
 }
  
 async function findUser(username) {
@@ -24,18 +31,18 @@ async function findUser(username) {
 }
 
 async function deleteUser(username){
-  const index = users.findIndex(user => user.username === username)
-  if(index === -1) return false
+  const index = getUserIndex(username, "username")
+  if(!index) return false
   users.splice(index, 1)
   return true
 }
 
 async function updateUser(userData){
-  const index = users.findIndex(user => user.username === userData.username)
-  if(index === -1) return false
+  const index = getUserIndex(userData.username, "username")
+  if(!index) return false
   
-  const newIndex = users.findIndex(user => user.username === userData.newUsername)
-  if(newIndex !== -1) return false
+  const newIndex = getUserIndex(userData.newUsername, "username")
+  if(newIndex) return false
 
   users[index].username = userData.newUsername
   if(userData.newBio === "") userData.newBio = "No bio yet..."
@@ -51,8 +58,8 @@ async function updateUser(userData){
 }
 
 async function updatePass(username, newPassword){
-  const index = users.findIndex(user => user.username === username)
-  if(index === -1) return false
+  const index = getUserIndex(username, "username")
+  if(!index) return false
 
   const hashed = await bcrypt.hash(newPassword, 10)
   users[index].password = hashed
@@ -60,16 +67,16 @@ async function updatePass(username, newPassword){
 }
 
 async function getUser(username){
-  const index = users.findIndex(user => user.username === username)
-  if(index === -1) return false
+  const index = getUserIndex(username, "username")
+  if(!index) return false
+
   const user = users[index]
   const tempUser = {
     username: user.username,
     id: user.id,
     bio: user.bio,
     starredPosts: user.starredPosts,
-    posts: user.posts,
-    role: user.role
+    posts: user.posts
   }
   return tempUser
 }
@@ -86,12 +93,17 @@ async function getPosts(){
 
 async function addPost(post){
   const index = users.findIndex(user => user.username === post.author)
+  if(index === -1) return false
+
   let id = generateID(6)
   if(!isValidID(id, "posts")) id =generateID(6)
+
   post["id"] = id
   post["stars"] = 0
   post["comments"] = []
-  if(users.at(index)) users.at(index).posts.push(post)
+
+  users.at(index).posts.push(post)
+  return true
 }
 
 function generateID(length){
@@ -133,8 +145,8 @@ async function updatePost(newTitle, newDescription, author, postID){
 }
 
 async function starPost(postID, username, stars){
-  const userIndex = users.findIndex(user => user.username === username)
-  if(userIndex === -1) return false
+  const userIndex = getUserIndex(username, "username")
+  if(!userIndex) return false
 
   const postIndex = posts.findIndex(post => post.id === postID)
   if(postIndex === -1) return false
@@ -150,8 +162,8 @@ async function starPost(postID, username, stars){
 }
 
 async function addComment(postID, commentAuthor, date, commentText){
-  const userIndex = users.findIndex(user => user.username === commentAuthor)
-  if(userIndex === -1) return false
+  const userIndex = getUserIndex(commentAuthor, "username")
+  if(!userIndex) return false
 
   let postIndex = posts.findIndex(post => post.id === postID)
   if(postIndex === -1) return false
@@ -187,8 +199,28 @@ async function deleteComment(commentID, postID){
 
   return true
 }
+
+async function isAdmin(username){
+  const userIndex = getUserIndex(username, "username")
+  if(!userIndex) return false
+  
+  if(users[userIndex].role === "admin") return true
+  else return false
+}
+async function updateRole(userID, adminID, newRole){
+  const isAdmin = await isAdmin(adminID)
+  if(!isAdmin) return false
+
+  const userIndex = getUserIndex(userID, "id")
+  if(!userIndex) return false
+
+  users[userIndex].role = newRole
+  return true
+}
+
  
 module.exports = { createUser, findUser, getPosts, 
    addPost, deletePost, updatePost, starPost,
     getUser, deleteUser, updateUser, updatePass, addComment,
-      getUsers, spawnUsers, deleteComment };
+      getUsers, spawnUsers, deleteComment, isAdmin,
+        updateRole };

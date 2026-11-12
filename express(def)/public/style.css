@@ -535,7 +535,7 @@ blue-10: #2E3A92 */
     background: #3c4bb9;
     text-align: center;
 }
-.loginButton, .logoutButton{
+.loginButton, .logoutButton, .adminMenuButton{
     align-self: center;
     border-radius: 8px;
     padding: 8px 24px;
@@ -545,11 +545,18 @@ blue-10: #2E3A92 */
     border: 3px solid #2E3A92;
     transition: color 0.3s;
 }
-.logoutButton{
+.logoutButton, .adminMenuButton{
     align-self: flex-start;
 }
 .loginButton:hover, .logoutButton:hover{
     color:#ced0d3;
+}
+.buttonContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 /* video */

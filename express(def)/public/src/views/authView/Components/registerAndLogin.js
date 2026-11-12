@@ -9,7 +9,9 @@ export function register(userData){
             if(response.status === 200){
                 response.json().then(() => {
                     if(login(userData)){
-                        fetch("/write", { method: 'GET', headers: { 'Content-Type': 'application/json' }})
+                        fetch("/write", { method: 'GET', headers: { 'Content-Type': 'application/json' }}).then(() => {
+                            console.log("fucking blablabla")
+                        })
 
                     }
 

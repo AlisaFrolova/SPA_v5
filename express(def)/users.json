@@ -78,5 +78,14 @@
     "role": "admin",
     "starredPosts": [],
     "posts": []
+  },
+  {
+    "username": "newuserrr",
+    "id": "46454246",
+    "password": "$2b$10$9gierZSwjyAryZLbLLhZ.O3dHw3SeRrkOb7ozBSQZoDKxyEkoeG4S",
+    "bio": "No bio yet...",
+    "role": "user",
+    "starredPosts": [],
+    "posts": []
   }
 ]
